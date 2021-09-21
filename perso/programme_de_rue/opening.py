@@ -1,0 +1,23 @@
+from shapes import *
+from color import *
+
+class window:
+    def __init__(self):
+        self.height = 30
+        self.color = (255,255,255)
+
+    def construction(self,multiplier):
+        positionX,positionY = turtle.pos()
+        square(self.height,self.color,positionX+10*multiplier,positionY+10)
+
+class door(generateColor):
+    def __init__(self):
+        self.height = 50
+        self.width = 30
+        super().__init__()
+
+    def construction(self,multiplier):
+        positionX,positionY = turtle.pos()
+        rectangle(self.height,self.width,self.randomColor,positionX+10*multiplier,positionY)
+
+
