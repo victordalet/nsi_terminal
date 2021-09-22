@@ -1,4 +1,5 @@
 import random
+##################### class that generates a random color rgb in binary (this class is used in other class) #####################
 class generateColor:
     def __init__(self):
         self.randomColor_red = random.randint(1,255)
