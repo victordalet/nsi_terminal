@@ -10,7 +10,6 @@ def initialization(positionX,positionY,color):
     t.down()
     t.screen.colormode(255)
     t.fillcolor(color)
-    t.pencolor(color)
     t.begin_fill()
 
 
