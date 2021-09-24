@@ -1,7 +1,6 @@
 from opening import *
 import random
 
-
 ##################### class that create the ground floor #####################
 class groundFloor(generateColor):
     def __init__(self):
@@ -24,8 +23,6 @@ class groundFloor(generateColor):
         window2.construction(97.5+multiplierX,0)
         door1.construction(55+multiplierX,0)
 
-
-
 ##################### class that create the floor #####################
 class floor(groundFloor):
     def __init__(self,floor1):
@@ -41,7 +38,6 @@ class floor(groundFloor):
         window1.construction(12.5+multiplierX,multiplierY)
         window2.construction(55+multiplierX,multiplierY)
         window3.construction(97.5+multiplierX,multiplierY)
-
 
 ##################### class that create the roof #####################
 class roof(generateColor):

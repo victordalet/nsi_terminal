@@ -3,7 +3,6 @@ import turtle
 t = turtle.Turtle()
 t.speed(0)
 
-
 ##################### function that positions the cursor and sets the color of the platform #####################
 def initialization(positionX,positionY,color):
     t.up()
@@ -13,6 +12,12 @@ def initialization(positionX,positionY,color):
     t.fillcolor(color)
     t.pencolor(color)
     t.begin_fill()
+
+
+
+def line(positionX,positionY):
+    initialization(positionX,positionY,(00,00,00))
+    t.forward(1000)
 
 ##################### function that creates squares #####################
 def square(length,color,positionX,positionY):
@@ -59,3 +64,43 @@ def triangle(color,positionX,positionY):
     t.backward(150)
     t.end_fill()
 
+
+##################### function that creates franch window #####################
+def frenchWindow(color,colorBlack,positionX,positionY):
+    initialization(positionX, positionY, color)
+    t.forward(30)
+    t.left(90)
+    t.forward(50)
+    t.left(90)
+    t.forward(30)
+    t.left(90)
+    t.forward(50)
+    t.end_fill()
+
+    t.pencolor(colorBlack)
+
+    t.right(90)
+    t.forward(5)
+    t.right(90)
+    t.forward(20)
+    t.right(90)
+    t.forward(40)
+    t.right(90)
+    t.forward(20)
+    t.left(90)
+    t.backward(40)
+    for i in range(4):
+        t.forward(5)
+        t.left(90)
+        t.forward(20)
+        t.right(90)
+        t.forward(5)
+        t.right(90)
+        t.forward(20)
+        t.left(90)
+    t.penup()
+    t.backward(35)
+    t.right(90)
+    t.forward(5)
+    t.left(90)
+    t.end_fill()

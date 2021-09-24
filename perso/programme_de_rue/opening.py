@@ -11,7 +11,11 @@ class window:
         self.colorBlack = (00,00,00)
 
     def construction(self,multiplierX,multiplierY):
-        square(self.height,self.color,multiplierX,multiplierY+10)
+        random_window = random.randint(1,2)
+        if random_window == 1:
+            square(self.height,self.color,multiplierX,multiplierY+10)
+        else:
+            frenchWindow(self.color,self.colorBlack,multiplierX,multiplierY)
 
 ##################### class that create windows from rectangle #####################
 class door(generateColor):
