@@ -13,10 +13,10 @@ def initialization(positionX,positionY,color):
     t.begin_fill()
 
 
-
-def line(positionX,positionY):
+##################### function that creates a line #####################
+def line(positionX,positionY,len):
     initialization(positionX,positionY,(00,00,00))
-    t.forward(1000)
+    t.forward(len)
 
 ##################### function that creates squares #####################
 def square(length,color,positionX,positionY):
@@ -24,6 +24,12 @@ def square(length,color,positionX,positionY):
     for i in range(4):
         t.forward(length)
         t.left(90)
+    t.end_fill()
+
+##################### function that creates a circle #####################
+def circle(ray,degree,color,positionX,positionY):
+    initialization(positionX,positionY,color)
+    t.circle(ray,degree)
     t.end_fill()
 
 ##################### function that creates rectangle #####################
@@ -103,3 +109,7 @@ def frenchWindow(color,colorBlack,positionX,positionY):
     t.forward(5)
     t.left(90)
     t.end_fill()
+
+##################### function that draw a cloud #####################
+def shapes_cloud(positionX,positionY,color):
+    initialization(positionX,positionY,color)
