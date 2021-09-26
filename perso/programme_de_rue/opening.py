@@ -27,7 +27,7 @@ class door(generateColor):
     def construction(self,multiplierX,multiplierY):
         random_door = random.randint(1, 2)
         if random_door == 1 :
-            rectangle(self.height,self.width,self.randomColor,multiplierX,0)
+            rectangle(self.height,self.width,self.randomColor,multiplierX,multiplierY)
         else :
-            rounded_rectangle(self.width,self.randomColor,multiplierX,0)
+            rounded_rectangle(self.width,self.randomColor,multiplierX,multiplierY)
 

@@ -6,7 +6,7 @@ t.speed(0)
 ##################### function that positions the cursor and sets the color of the platform #####################
 def initialization(positionX,positionY,color):
     t.up()
-    t.goto(positionX, positionY)
+    t.goto(positionX,positionY)#rule of three
     t.down()
     t.screen.colormode(255)
     t.fillcolor(color)
@@ -111,5 +111,26 @@ def frenchWindow(color,colorBlack,positionX,positionY):
     t.end_fill()
 
 ##################### function that draw a cloud #####################
-def shapes_cloud(positionX,positionY,color):
+def shapes_cloud(positionX,positionY,color,len):
     initialization(positionX,positionY,color)
+    t.circle(len,180)
+    t.right(90)
+    t.circle(len,180)
+    t.right(180)
+    t.circle(len, 180)
+    t.right(180)
+    t.circle(len, 180)
+    t.right(180)
+    t.circle(len, 180)
+    t.right(90)
+    t.circle(len, 180)
+    t.right(90)
+    t.circle(len, 180)
+    t.left(180)
+    t.circle(len, 180)
+    t.left(180)
+    t.circle(len, 180)
+    t.left(180)
+    t.circle(len, 180)
+    t.right(90)
+    t.end_fill()

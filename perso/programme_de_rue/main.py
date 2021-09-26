@@ -4,10 +4,7 @@ from shapes import *
 from background import *
 def main():
 	turtle.title("programme de rue")
-	line(-700,-1,1340)
-	background_final = Background()
-	background_final.construction()
-	background_final.day(20)
+	line(-700,-300,1340)
 	##################### creation of apartments (launch of the calsse __init__) #####################
 	apartmentBuilding1 = apartmentBuilding()
 	apartmentBuilding2 = apartmentBuilding()
@@ -30,5 +27,6 @@ def main():
 	background_final.day(20)
 	##################### final observation time #####################
 	turtle.mainloop()
+
 
 main()

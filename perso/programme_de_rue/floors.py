@@ -13,15 +13,15 @@ class groundFloor(generateColor):
         ##################### method for recovering the color for the rest of the apartment #####################
         return self.randomColor
 
-    def construction(self,multiplierX):
+    def construction(self,multiplierX,multiplierY):
         ##################### creating the twoo windows and the door #####################
-        rectangle(self.width, self.height, self.randomColor,multiplierX,0)
+        rectangle(self.width, self.height, self.randomColor,multiplierX,multiplierY)
         window1 = window()
         window2 = window()
         door1 = door()
-        window1.construction(12.5+multiplierX,0)
-        window2.construction(97.5+multiplierX,0)
-        door1.construction(55+multiplierX,0)
+        window1.construction(12.5+multiplierX,multiplierY)
+        window2.construction(97.5+multiplierX,multiplierY)
+        door1.construction(55+multiplierX,multiplierY)
 
 ##################### class that create the floor #####################
 class floor(groundFloor):
