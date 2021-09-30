@@ -1,4 +1,5 @@
 import tkinter
+from question import *
 
 class window:
     def __init__(self):
@@ -10,9 +11,9 @@ class window:
         self.height = self.window.winfo_screenheight()
         self.window.geometry('{}x{}'.format(self.width,self.height))
         self.window.attributes('-fullscreen', True)
-        self.rbvar = tkinter.StringVar()
-        self.rbvar.set("")
+        self.var = tkinter.IntVar()
         self.list_color_historical = ["#ff00ff", "#00ffff", "ffff00"]
+        self.number_of_question = 1
 
     ##################  CREATION ZONE DE TEXTE ##################
     def made_label(self,message,x,y,w,h):
@@ -25,6 +26,54 @@ class window:
         self.input = tkinter.Entry(self.window)
         self.input.pack()
         self.input.place(x=x,y=y,width=w,height=h)
+
+    ##################  POUR CREER UN BOUTON  ##################
+    def made_buttum(self,message,x,y,w,h):
+        self.button = tkinter.Button(self.window, text=message, command=self.color_change_text)
+        self.button.pack()
+        self.button.place(x=x, y=y, width=w, height=h)
+
+
+    ##################  POUR CREER DIFFERENTS BOUTONS RADIO ##################
+    def ConstructionButtunRadioType1(self,name,value,x,y,w,h):
+        self.checkbox = tkinter.Radiobutton(self.window,cursor="mouse", text=name, value=value,command= self.color_change_bleu)
+        self.checkbox.pack()
+        self.checkbox.place(x=x, y=y, width=w, height=h)
+
+    def ConstructionButtunRadioType2(self,name,value,x,y,w,h):
+        self.checkbox = tkinter.Radiobutton(self.window,cursor="mouse", text=name, value=value,command= self.color_change_red)
+        self.checkbox.pack()
+        self.checkbox.place(x=x, y=y, width=w, height=h)
+
+    def ConstructionButtunRadioType3(self,name,value,x,y,w,h):
+        self.checkbox = tkinter.Radiobutton(self.window,cursor="mouse", text=name, value=value,command= self.color_change_green)
+        self.checkbox.pack()
+        self.checkbox.place(x=x, y=y, width=w, height=h)
+
+    def ConstructionButtunRadioType4(self,name,value,x,y,w,h):
+        self.checkbox = tkinter.Radiobutton(self.window,cursor="mouse", text=name, value=value,command= self.color_change_historical1)
+        self.checkbox.pack()
+        self.checkbox.place(x=x, y=y, width=w, height=h)
+
+    def ConstructionButtunRadioType5(self,name,value,x,y,w,h):
+        self.checkbox = tkinter.Radiobutton(self.window,cursor="mouse", text=name, value=value,command= self.color_change_historical2)
+        self.checkbox.pack()
+        self.checkbox.place(x=x, y=y, width=w, height=h)
+
+    def ConstructionButtunRadioType6(self, name, value, x, y, w, h):
+        self.checkbox = tkinter.Radiobutton(self.window, cursor="mouse", text=name,value=value, command=self.color_change_historical3)
+        self.checkbox.pack()
+        self.checkbox.place(x=x, y=y, width=w, height=h)
+
+    def ConstructionButtunRadioTypeQuestion(self, name,color, value, x, y, w, h):
+        self.checkbox = tkinter.Radiobutton(self.window,selectcolor=color,bg='grey', cursor="mouse", text=name,activeforeground=color,value=value)
+        self.checkbox.pack()
+        self.checkbox.place(x=x, y=y, width=w, height=h)
+
+    def ConstructionButtunRadioTypeQuestionChoice(self, name, value, x, y, w, h):
+        self.checkbox = tkinter.Radiobutton(self.window ,bg='grey', cursor="mouse", text=name, variable=self.var,value=value,command=self.changeQuestion)
+        self.checkbox.pack()
+        self.checkbox.place(x=x, y=y, width=w, height=h)
 
     ##################  POUR CHANGER LA COULEUR DU FOND SELON L'ENTREE DU TEXT ##################
     def color_change_text(self):
@@ -68,46 +117,10 @@ class window:
         self.window.config(bg=color)
         self.list_color_historical.append(color)
 
-    ##################  POUR CREER UN BOUTON  ##################
-    def made_buttum(self,message,x,y,w,h):
-        self.button = tkinter.Button(self.window, text=message, command=self.color_change_text)
-        self.button.pack()
-        self.button.place(x=x, y=y, width=w, height=h)
-
-    ##################  POUR CREER DIFFERENTS BOUTONS RADIO ##################
-    def ConstructionButtunRadioType1(self,name,value,x,y,w,h):
-        self.checkbox = tkinter.Radiobutton(self.window,cursor="mouse", text=name, variable=self.rbvar, value=value,command= self.color_change_bleu)
-        self.checkbox.pack()
-        self.checkbox.place(x=x, y=y, width=w, height=h)
-
-    def ConstructionButtunRadioType2(self,name,value,x,y,w,h):
-        self.checkbox = tkinter.Radiobutton(self.window,cursor="mouse", text=name, variable=self.rbvar, value=value,command= self.color_change_red)
-        self.checkbox.pack()
-        self.checkbox.place(x=x, y=y, width=w, height=h)
-
-    def ConstructionButtunRadioType3(self,name,value,x,y,w,h):
-        self.checkbox = tkinter.Radiobutton(self.window,cursor="mouse", text=name, variable=self.rbvar, value=value,command= self.color_change_green)
-        self.checkbox.pack()
-        self.checkbox.place(x=x, y=y, width=w, height=h)
-
-    def ConstructionButtunRadioType4(self,name,value,x,y,w,h):
-        self.checkbox = tkinter.Radiobutton(self.window,cursor="mouse", text=name, variable=self.rbvar, value=value,command= self.color_change_historical1)
-        self.checkbox.pack()
-        self.checkbox.place(x=x, y=y, width=w, height=h)
-
-    def ConstructionButtunRadioType5(self,name,value,x,y,w,h):
-        self.checkbox = tkinter.Radiobutton(self.window,cursor="mouse", text=name, variable=self.rbvar, value=value,command= self.color_change_historical2)
-        self.checkbox.pack()
-        self.checkbox.place(x=x, y=y, width=w, height=h)
-
-    def ConstructionButtunRadioType6(self, name, value, x, y, w, h):
-        self.checkbox = tkinter.Radiobutton(self.window, cursor="mouse", text=name, variable=self.rbvar,value=value, command=self.color_change_historical3)
-        self.checkbox.pack()
-        self.checkbox.place(x=x, y=y, width=w, height=h)
-
-    def ConstructionButtunRadioTypeQuestion(self, name,color, value, x, y, w, h):
-        self.checkbox = tkinter.Radiobutton(self.window,selectcolor=color,bg='grey', cursor="mouse", text=name,activeforeground=color, variable=self.rbvar,value=value)
-        self.checkbox.pack()
-        self.checkbox.place(x=x, y=y, width=w, height=h)
+    ##################  POUR CHANGER LE QUESTION  ##################
+    def changeQuestion(self):
+        choice_of_question = self.var.get()
+        self.number_of_question = choice_of_question
+        choice_question(self.number_of_question,self)
 
 

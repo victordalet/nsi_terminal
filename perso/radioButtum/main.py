@@ -1,5 +1,6 @@
 import tkinter
 from window import *
+from question import *
 
 def main():
     print("lancement...")
@@ -16,12 +17,14 @@ def main():
     ecran.ConstructionButtunRadioType4("-1", 4, 1340, 535, 60, 45)
     ecran.ConstructionButtunRadioType5("-2", 5, 1400, 535, 60, 45)
     ecran.ConstructionButtunRadioType6("-3", 6, 1460, 535, 60, 45)
-    ##################  QUESTION ##################
-    ecran.made_label('La vitesse est limitée à 50km/h, en raison',ecran.width/2-(250/2),0,250,50)
-    ################## BOUTON POUR REPONSE AUX QUESTION ##################
-    ecran.ConstructionButtunRadioTypeQuestion("de l'absence de visibilité A",'green',"r1",ecran.width/2-(250/2),50,250,45)
-    ecran.ConstructionButtunRadioTypeQuestion("du rayon de virage B",'green', "r2", ecran.width/2-(250/2),95, 250, 45)
-    ecran.ConstructionButtunRadioTypeQuestion("de la proximité de la fôret C",'red', "r3", ecran.width/2-(250/2), 140, 250, 45)
+    ##################  AFFICHAGE QUESTION ##################
+    choice_question(1,ecran)
+    ##################  BOUTON POUR LES DIFFERENTES QUESTIONS ##################
+    ecran.ConstructionButtunRadioTypeQuestionChoice("Question 1 ", 1,ecran.width / 2 - (250 / 2)-500, 250, 250, 45)
+    ecran.ConstructionButtunRadioTypeQuestionChoice("Question 2 ", 2, ecran.width / 2 - (250 / 2)-250, 250, 250,45)
+    ecran.ConstructionButtunRadioTypeQuestionChoice("Question 3 ", 3, ecran.width / 2 - (250 / 2), 250, 250,45)
+    ecran.ConstructionButtunRadioTypeQuestionChoice("Question 4 ", 4, ecran.width / 2 - (250 / 2)+250, 250, 250,45)
+    ecran.ConstructionButtunRadioTypeQuestionChoice("Question 5 ", 5, ecran.width / 2 - (250 / 2)+500, 250, 250,45)
 
 
 main()
