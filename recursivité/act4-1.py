@@ -10,5 +10,5 @@ def main():
 	print(fib(-2))
 	print(fib(2))
 	print(fib(5))
-	
+		
 main()
