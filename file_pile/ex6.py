@@ -14,7 +14,7 @@ def ft_has_parenthesis(element):
 
 
 def main():
-	print(ft_has_parenthesis('((())'))
+	print(ft_has_parenthesis('((()())'))
 	print(ft_has_parenthesis('((())) '))
 	print(ft_has_parenthesis('()(()()'))
 
