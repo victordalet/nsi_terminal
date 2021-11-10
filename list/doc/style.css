@@ -1,0 +1,97 @@
+*, ::before, ::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+body {
+	background: #0f0f0f;
+	text-align: center;
+}
+
+h1 {
+	font-family: Open sans;
+	font-weight: 400;
+	font-size: 50px;
+	color: #fff;
+	display: inline-block;
+	margin : 0 auto;
+	margin-top: 20%;
+	position: relative;
+}
+
+h1::after {
+	content: "";
+	position: absolute;
+	display: block;
+	height: 100%;
+	width: 3px;
+	background: #fff;
+	right: -15px;
+	top: 0;
+	animation: cursor 1s infinite;
+}
+
+@keyframes cursor
+{
+	0%
+	{
+		opacity: 1;
+	}
+	50%
+	{
+		opacity: 0;
+	}
+	100%
+	{
+		opacity: 1;
+	}
+}
+
+/*********************************/
+.code {
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	border: 2px solid #000;
+	border-radius: 5px;
+	text-align: left;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+h2 {
+
+	margin-left: 2%;
+}
+
+.biblio {
+	color : #000;
+}
+
+.point {
+	color : #968B89
+}
+
+.nom {
+	color: #063FB3;
+}
+
+.valeur {
+	color : #F38000;
+}
+
+.commentaire {
+	color: #84817D;
+}
+
+
+.image-container {
+    display: grid;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 40%;
+
+}
+
+
+

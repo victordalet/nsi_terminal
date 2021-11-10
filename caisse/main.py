@@ -14,9 +14,7 @@ def give_change(price,given_money):
 	####################### CALCULE #######################
 
 	for i in list_of_money:
-		if i+complete > difference:
-			continue
-		else:
+		if i+complete < difference:
 			while((complete < difference) and (dic_of_box[str(i)] > 0)):
 				complete += i
 				dic_of_money[str(i)] += 1
