@@ -93,4 +93,15 @@ h2 {
 }
 
 
+/************************/
 
+a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+  transition: 1.5s;
+}
+
+a:hover {
+	color: #a80000;
+}
