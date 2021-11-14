@@ -39,3 +39,13 @@ const observer = new IntersectionObserver(handleIntersect, options)
 images.forEach(image => {
   observer.observe(image)
 })
+
+
+/********************************/
+
+
+const loader = document.querySelector('.loader');
+
+window.addEventListener('load',()=> {
+  loader.classList.add('fondu-out');
+})

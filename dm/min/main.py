@@ -1,8 +1,8 @@
 def minimum(liste):
 	mini = liste[0]
-	for i in range(len(liste)):
-		if liste[i] < mini:
-			mini = liste[i]
+	for i in liste:
+		if i < mini:
+			mini = i
 	print(mini)
 	return mini
 
