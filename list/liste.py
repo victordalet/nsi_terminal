@@ -1,6 +1,6 @@
 import random,csv,turtle
 
-#doc : 
+#doc : http://virginieduhamel.lescigales.org/doc/
 
 
 def longeurListe(liste):
