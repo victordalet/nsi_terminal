@@ -1,4 +1,8 @@
-import random,csv
+import random,csv,turtle
+
+#doc : 
+
+
 def longeurListe(liste):
 	"""
 	entrée : une liste
@@ -202,5 +206,112 @@ def couperListe(liste):
 	print(dic_liste)
 	return dic_liste
 
+##########################################################
 
-print(supprimerElement([5,4,8,1]))
+def bulle(liste):
+	"""
+	entrée : une liste
+	sortie : la liste triée dans l'ordre croissant
+	"""
+	for i in range(longeurListe(liste)):
+		for j in range(longeurListe(liste) - i - 1):
+			if liste[j] > liste[j + 1]:
+				liste[j], liste[j + 1] = liste[j + 1], liste[j]
+	return liste
+
+##########################################################
+
+
+def somme(liste):
+	"""
+	entrée : une liste
+	sortie : la somme des thermes
+	"""
+	somme = 0
+	for i in  liste:
+		somme += i
+	return somme
+
+
+
+###########################################################
+
+def dichotomie(liste,valeur):
+	"""
+	entrée : une liste, une valeur a rechercher dans la liste
+	sortie : True si la valeur est dans la liste, sinon False
+	"""
+	a = 0
+	b = longeurListe(liste) - 1
+	while a <= b:
+		moyenne = (a + b) // 2
+		if liste[moyenne] == valeur:
+			return True
+		elif liste[moyenne] < valeur:
+			a = moyenne + 1
+		else:
+			b = moyenne - 1
+	return False
+
+###########################################################
+
+def dessiner_graphe(graphe):
+	"""
+	entrée : un graphe
+	sortie : l'affichage du graphe
+	"""
+	turtle.title("graphe")
+	####################### Noeud #######################	
+	coordonnees = []
+	x,y = (0,0)
+	distance = 70
+	for i in range(longeurListe(graphe)):
+		coordonnees.append([x,y])
+		noeud = draw()
+		noeud.polygone(x,y,(0,0,0))
+		if i < int(longeurListe(graphe)/2):
+			y -= distance 
+			if i == 0:
+				x += distance 
+		else :
+			if i != int(longeurListe(graphe)/2):
+				y += distance 
+			x = -distance
+
+
+	####################### Ligne #######################
+	print(coordonnees)
+	for i in range(longeurListe(graphe)):
+		for j in range(longeurListe(graphe[i])):
+			ligne = draw()
+			ligne.line(coordonnees[i][0],coordonnees[i][1],(220,0,0),coordonnees[graphe[i][j]][0],coordonnees[graphe[i][j]][1])
+
+	turtle.mainloop()
+
+class draw:
+	def __init__(self):
+		self.t = turtle.Turtle()
+		self.t.speed(0)
+		self.length = 10
+	def initialization(self,positionX,positionY,color):
+		self.t.up()
+		self.t.goto(positionX, positionY)
+		self.t.down()
+		self.t.screen.colormode(255)
+		turtle.Screen().bgcolor((8,192,254))
+		self.t.fillcolor(color)
+		self.t.begin_fill()
+		turtle.hideturtle()
+
+	def polygone(self, positionX, positionY, color):
+		self.initialization(positionX, positionY, color)
+		for i in range(10):
+			self.t.forward(self.length)
+			self.t.left(360 / 10)
+
+	def line(self, positionX, positionY, color,positionX2,positionY2):
+			self.initialization(positionX, positionY, color)
+			self.t.goto(positionX2,positionY2)
+
+
+###########################################################

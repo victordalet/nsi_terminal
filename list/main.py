@@ -1,9 +1,19 @@
 import liste
-
-
 def main():
 	ma_liste = [4,5,6,2,1,9]
+	graphe = [
+	[1,5,3],
+	[0,5,2],
+	[1,4],
+	[2,1,5,0],
+	[0],
+	[],
+	[2,3],
+	[0,1,2,3,4],
+	[6]
+	]
 	element = 9
+	rang = 2
 
 	print(liste.longeurListe(ma_liste))
 	"""
@@ -65,18 +75,11 @@ def main():
 	sortie : l'élément le plus grand de la liste
 	"""
 
-	print(liste.fromCvsToList(url))
-	"""
-	entrée : l'url d'un fichier cvs 
-	sortie : la liste du fichier cvs
-	"""
-
 	print(liste.randomList())
 	"""
 	entrée : rien 
 	sortie : une liste avec des nombres aléatoires et de rangs aléatoires  
 	"""
-
 
 	print(liste.supprimerListe(ma_liste))
 	"""
@@ -89,5 +92,7 @@ def main():
 	entrée : une liste
 	sortie : un dictionnaire avec en valeur le rang et en valeur la valeur du rang 
 	"""
+
+	liste.dessiner_graphe(graphe)
 
 main()
