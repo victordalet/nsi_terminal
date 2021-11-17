@@ -171,15 +171,16 @@ def fromCvsToList(url):
 	sortie : la liste du fichier cvs
 	"""
 	liste = []
+	liste2 = []
 	with open(url, newline='') as csvfile:
-		contenu = csv.reader(csvfile,delimiter=' ',quotechar='|')
+		contenu = csv.reader(csvfile, delimiter=' ', quotechar='|')
 		for i in contenu:
-			ajouterElement(liste,i)
-			print(i)
-			
-	return liste
-
-
+			ajouterElement(liste, i)
+		for i in liste[0]:
+			for j in i:
+				if j != ';':
+					liste2.append(j)
+	return liste2
 #########################################################
 
 def randomList(mini=0,maxi=100):
