@@ -10,10 +10,11 @@ def main():
 	[],
 	[2,3],
 	[0,1,2,3,4],
-	[6]
+	[5]
 	]
 	element = 9
 	rang = 2
+	valeur = rang
 
 	print(liste.longeurListe(ma_liste))
 	"""
@@ -22,6 +23,7 @@ def main():
 	"""
 
 	print(liste.ordreCroissant(ma_liste))
+	#trie par fusion
 	"""
 	entrée : une liste d' int ou float
 	sortie : la liste triée dans l'ordre croissant
@@ -93,6 +95,19 @@ def main():
 	sortie : un dictionnaire avec en valeur le rang et en valeur la valeur du rang 
 	"""
 
+	print(liste.bulle(ma_liste))
+
+	print(liste.somme(ma_liste))
+
+	print(liste.dichotomie(ma_liste,valeur))
+
+	print(liste.Tinsertion(ma_liste))
+
+	print(liste.fromCvsToList("data.csv"))
+
+	print(liste.Trapide(ma_liste))
+
 	liste.dessiner_graphe(graphe)
+
 
 main()
