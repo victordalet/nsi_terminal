@@ -8,6 +8,7 @@ def longeurListe(liste):
 	entrée : une liste
 	sortie : nombre d'éléments de la liste
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	c = 0
 	for i in liste:
 		c += 1
@@ -19,6 +20,7 @@ def ordreCroissant(liste):
 	entrée : une liste d' int ou float
 	sortie : la liste triée dans l'ordre croissant
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	if longeurListe(liste) == 1:
 		return liste
@@ -50,6 +52,7 @@ def ordreDecroissant(liste):
 	entrée : une liste d' int ou float
 	sortie : la liste triée dans l'ordre décroissant
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	if longeurListe(liste) == 1:
 		return liste
@@ -80,6 +83,7 @@ def calculeMoyenne(liste):
 	entrée : une liste d' int ou float
 	sortie : la moyenne de la liste
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	moyenne = 0
 	for i in liste:
@@ -94,6 +98,7 @@ def calculeMediane(liste):
 	entrée : une liste d' int ou float
 	sortie : la mediane de la liste
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	liste = ordreCroissant(liste)
 	if longeurListe(liste) < 1:
@@ -110,6 +115,7 @@ def calculeEtendue(liste):
 	entrée : une liste d' int ou float
 	sortie : l'étendue de la liste
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	liste = ordreCroissant(liste)
 	return liste[-1] - liste[0]
@@ -121,6 +127,7 @@ def ajouterElement(liste,element):
 	entrée : une liste , un élément
 	sortie : la liste avec un nouvelle élément
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	liste += [element]
 	return liste
 
@@ -131,6 +138,7 @@ def supprimerElement(liste,rang= -1):
 	entrée : une liste , le rang d'une liste (prédéfinie au dernier élément)
 	sortie : la liste avec l'élément en moins
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	if rang == -1:
 		rang = longeurListe(liste) -1
@@ -148,6 +156,7 @@ def recupererMin(liste):
 	entrée : une liste d' int ou float
 	sortie : l'élément le plus petit de la liste
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	liste = ordreCroissant(liste)
 	return liste[0]
@@ -159,6 +168,7 @@ def recupererMax(liste):
 	entrée : une liste d' int ou float
 	sortie : l'élément le plus grand de la liste
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	liste = ordreCroissant(liste)
 	return liste[-1]
@@ -172,14 +182,16 @@ def fromCvsToList(url):
 	"""
 	liste = []
 	liste2 = []
-	with open(url, newline='') as csvfile:
-		contenu = csv.reader(csvfile, delimiter=' ', quotechar='|')
-		for i in contenu:
-			ajouterElement(liste, i)
-		for i in liste[0]:
-			for j in i:
-				if j != ';':
-					liste2.append(j)
+	try : 
+		with open(url, newline='') as csvfile:
+			contenu = csv.reader(csvfile, delimiter=' ', quotechar='|')
+			for i in contenu:
+				ajouterElement(liste, i)
+			for i in liste[0]:
+				for j in i:
+					if j != ';':
+						liste2.append(j)
+	except : print("Erreur d'url ou de fichier")
 	return liste2
 #########################################################
 
@@ -199,6 +211,7 @@ def supprimerListe(liste):
 	entrée : une liste 
 	sortie : la liste vidée
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	return []
 
 #########################################################
@@ -208,6 +221,7 @@ def couperListe(liste):
 	entrée : une liste
 	sortie : un dictionnaire avec en valeur le rang et en valeur la valeur du rang 
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	dic_liste = {}
 	for i in range(longeurListe(liste)):
@@ -222,6 +236,7 @@ def bulle(liste):
 	entrée : une liste
 	sortie : la liste triée dans l'ordre croissant
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	for i in range(longeurListe(liste)):
 		for j in range(longeurListe(liste) - i - 1):
@@ -237,6 +252,7 @@ def somme(liste):
 	entrée : une liste
 	sortie : la somme des thermes
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	somme = 0
 	for i in  liste:
@@ -251,6 +267,8 @@ def dichotomie(liste,valeur):
 	entrée : une liste, une valeur a rechercher dans la liste
 	sortie : True si la valeur est dans la liste, sinon False
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
+	assert isinstance(valeur,int), "une int est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	a = 0
 	b = longeurListe(liste) - 1
@@ -271,6 +289,7 @@ def dessiner_graphe(graphe):
 	entrée : un graphe
 	sortie : l'affichage du graphe
 	"""
+	assert isinstance(graphe,list), "une graphe est demandée"
 	assert longeurListe(graphe) > 0, "graphe est vide"
 	turtle.title("graphe")
 	####################### Noeud #######################	
@@ -331,6 +350,7 @@ def Tinsertion(liste):
 	entrée : une liste
 	sortie : la liste triée dans l'ordre croissant avec la méthode par inserction
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	for i in range(1,longeurListe(liste)):
 		c = liste[i]
@@ -349,6 +369,7 @@ def Trapide(liste):
 	entrée : une liste
 	sortie : la liste triée dans l'ordre croissant avec la méthode de trie rapide
 	"""
+	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	pivot = liste[longeurListe(liste) - 1]
 	c = 0
@@ -361,4 +382,23 @@ def Trapide(liste):
 	liste[longeurListe(liste) - 1], liste[c] = liste[c], liste[longeurListe(liste) - 1]
 
 	return liste
-	
+
+############################################################
+
+def Tselection(liste):
+	"""
+	entrée : une liste
+	sortie : la liste triée dans l'ordre croissant avec la méthode de trie par selection
+	"""
+	assert isinstance(liste,list), "une liste est demandée"
+	assert longeurListe(liste) > 0, "Tableau est vide"
+	n = longeurListe(liste)
+	for i in range(n - 2):
+		value_min = i
+		for j in (i + 1, n - 1):
+			if liste[j] < liste[value_min]:
+				value_min = j
+			if value_min != i:
+				liste[i], liste[value_min] = liste[value_min], liste[i]
+	return liste
+

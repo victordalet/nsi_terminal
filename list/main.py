@@ -107,6 +107,8 @@ def main():
 
 	print(liste.Trapide(ma_liste))
 
+	print(liste.Tselection(ma_liste))
+
 	liste.dessiner_graphe(graphe)
 
 
