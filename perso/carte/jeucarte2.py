@@ -19,7 +19,7 @@ class JeuCartes:
             for n in noms:
                 for c in couleurs:
                     self.jeu.append(Carte(n,c))
-        if self.nbCartes==32:
+        elif self.nbCartes==32:
             for n in noms[5:]:
                 for c in couleurs:
                     self.jeu.append(Carte(n,c))

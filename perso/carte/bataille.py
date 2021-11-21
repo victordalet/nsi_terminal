@@ -22,8 +22,15 @@ class Bataille:
 
 def run():
 	commit = JeuCartes()
+	commit.creerJeu()
+	commit.melanger()
 	player1 = Joeur("bob",int(commit.getTailleJeu()/2))
 	player2 = Joeur("billy",int(commit.getTailleJeu()/2))
+	for i in range(1,int(commit.getTailleJeu()/2)):
+		print(player1.getNbCarte())
+		player1.insererMain(commit.distribuerCarte())
+	for i in range(1,int(commit.getTailleJeu()/2)):	
+		player2.insererMain(commit.distribuerCarte())
 	liste1 = Bataille()
 	liste2 = Bataille()
 	manche = 1

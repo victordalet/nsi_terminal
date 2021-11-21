@@ -4,11 +4,11 @@ class Joeur:
 	def __init__(self,nom,nbCarte):
 		self.nom = nom
 		self.nbCarte = nbCarte
-		self.mainJoeur = [Carte(random.choice(noms),random.choice(couleurs)) for i in range(self.nbCarte)]
+		self.mainJoeur = []
 
-	def setMain(self):
+	def setMain(self,commit):
 		for i in range(self.nbCarte):
-			self.mainJoeur += [Carte(random.choice(noms),random.choice(couleurs))]
+			self.mainJoeur += [commit]
 
 	def getNom(self):
 		return self.nom
