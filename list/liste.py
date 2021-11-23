@@ -18,7 +18,7 @@ def longeurListe(liste):
 def ordreCroissant(liste):
 	"""
 	entrée : une liste d' int ou float
-	sortie : la liste triée dans l'ordre croissant
+	sortie : la liste triée dans l'ordre croissant par la méthode de fusion
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
@@ -74,7 +74,7 @@ def fusionDecrossante(t1,t2):
 		return [t2[0]] + fusionDecrossante(t1,t2[1:])
 
 	else:
-		return [t1[0]] + fusionDecrossante(t1[1:],t2)
+		return [t1[0]] + fusionDecrossante(t1[1:],t2)	
 
 #########################################################
 
@@ -298,7 +298,7 @@ def dessiner_graphe(graphe):
 	distance = 70
 	for i in range(longeurListe(graphe)):
 		coordonnees.append([x,y])
-		noeud = draw()
+		noeud = draw()		
 		noeud.polygone(x,y,(0,0,0))
 		if i < int(longeurListe(graphe)/2):
 			y -= distance 
@@ -323,6 +323,7 @@ class draw:
 		self.t = turtle.Turtle()
 		self.t.speed(0)
 		self.length = 10
+		
 	def initialization(self,positionX,positionY,color):
 		self.t.up()
 		self.t.goto(positionX, positionY)

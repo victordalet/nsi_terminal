@@ -152,7 +152,12 @@ button {
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
   background: linear-gradient(135deg, hsl(215,50%,90),  hsl(215,50%,90));
-  box-shadow: inset 5px 5px 7px 5px rgba(0, 0, 0, 0.1), inset -5px -5px 7px 5px rgba(247, 251, 255, 0.6);
+  box-shadow: 9px 9px 16px #808080,-9px -9px 16px #ffffff;
+}
+
+
+.code:hover {
+	  box-shadow: inset 5px 5px 7px 5px rgba(0, 0, 0, 0.1), inset -5px -5px 7px 5px rgba(247, 251, 255, 0.6);
 }
 
 #image {
