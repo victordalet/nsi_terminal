@@ -22,6 +22,7 @@ def ordreCroissant(liste):
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	if longeurListe(liste) == 1:
 		return liste
 
@@ -54,6 +55,7 @@ def ordreDecroissant(liste):
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	if longeurListe(liste) == 1:
 		return liste
 
@@ -85,6 +87,7 @@ def calculeMoyenne(liste):
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	moyenne = 0
 	for i in liste:
 		moyenne += i
@@ -100,6 +103,7 @@ def calculeMediane(liste):
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	liste = ordreCroissant(liste)
 	if longeurListe(liste) < 1:
 		return None
@@ -117,6 +121,7 @@ def calculeEtendue(liste):
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	liste = ordreCroissant(liste)
 	return liste[-1] - liste[0]
 
@@ -140,6 +145,7 @@ def supprimerElement(liste,rang= -1):
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	if rang == -1:
 		rang = longeurListe(liste) -1
 	dic = couperListe(liste)
@@ -158,6 +164,7 @@ def recupererMin(liste):
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	liste = ordreCroissant(liste)
 	return liste[0]
 
@@ -170,6 +177,7 @@ def recupererMax(liste):
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	liste = ordreCroissant(liste)
 	return liste[-1]
 
@@ -223,6 +231,7 @@ def couperListe(liste):
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	dic_liste = {}
 	for i in range(longeurListe(liste)):
 		dic_liste[str(i)] = liste[i]
@@ -238,6 +247,7 @@ def bulle(liste):
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	for i in range(longeurListe(liste)):
 		for j in range(longeurListe(liste) - i - 1):
 			if liste[j] > liste[j + 1]:
@@ -254,6 +264,7 @@ def somme(liste):
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	somme = 0
 	for i in  liste:
 		somme += i
@@ -270,6 +281,7 @@ def dichotomie(liste,valeur):
 	assert isinstance(liste,list), "une liste est demandée"
 	assert isinstance(valeur,int), "une int est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	a = 0
 	b = longeurListe(liste) - 1
 	while a <= b:
@@ -323,7 +335,7 @@ class draw:
 		self.t = turtle.Turtle()
 		self.t.speed(0)
 		self.length = 10
-		
+
 	def initialization(self,positionX,positionY,color):
 		self.t.up()
 		self.t.goto(positionX, positionY)
@@ -353,6 +365,7 @@ def Tinsertion(liste):
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	for i in range(1,longeurListe(liste)):
 		c = liste[i]
 		valeur = i - 1
@@ -372,6 +385,7 @@ def Trapide(liste):
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	pivot = liste[longeurListe(liste) - 1]
 	c = 0
 	valeur = 0
@@ -393,6 +407,7 @@ def Tselection(liste):
 	"""
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
 	n = longeurListe(liste)
 	for i in range(n - 2):
 		value_min = i
@@ -403,3 +418,7 @@ def Tselection(liste):
 				liste[i], liste[value_min] = liste[value_min], liste[i]
 	return liste
 
+
+def chercheList(liste):
+	for i in liste:
+		assert isinstance(i,float) or isinstance(i,int), "une liste de floatant ou d'int est demandée"

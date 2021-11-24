@@ -1,6 +1,6 @@
 import liste
 def main():
-	ma_liste = [4,5,6,2,1,9]
+	ma_liste = [2,3,2.0,1]
 	graphe = [
 	[1,5,3],
 	[0,5,2],
