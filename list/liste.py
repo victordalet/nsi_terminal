@@ -183,11 +183,12 @@ def recupererMax(liste):
 
 #########################################################
 
-def fromCvsToList(url):
+def fromCvsToList(url,type_separateur = ";"):
 	"""
 	entrée : l'url d'un fichier cvs 
 	sortie : la liste du fichier cvs
 	"""
+	assert isinstance(type_separateur,str), "le séparateur est un str"
 	liste = []
 	liste2 = []
 	try : 
@@ -197,9 +198,9 @@ def fromCvsToList(url):
 				ajouterElement(liste, i)
 			for i in liste[0]:
 				for j in i:
-					if j != ';':
+					if j != type_separateur:
 						liste2.append(j)
-	except : print("Erreur d'url ou de fichier")
+	except : print("Erreur : mauvais séparateur ou mauvais chemain d'accès")
 	return liste2
 #########################################################
 

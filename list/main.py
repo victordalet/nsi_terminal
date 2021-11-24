@@ -1,6 +1,6 @@
 import liste
 def main():
-	ma_liste = [2,3,2.0,1]
+	ma_liste = [2,3,2.0]
 	graphe = [
 	[1,5,3],
 	[0,5,2],
@@ -23,7 +23,7 @@ def main():
 	"""
 
 	print(liste.ordreCroissant(ma_liste))
-	#trie par fusion
+	#tri par fusion
 	"""
 	entrée : une liste d' int ou float
 	sortie : la liste triée dans l'ordre croissant
