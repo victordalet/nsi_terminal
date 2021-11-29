@@ -9,10 +9,7 @@ class Carte:
         self.nom = nom
         self.couleur = couleur 
         self.valeur = valeurs[self.nom] #on prend les valeurs la haut 
-        if nom not in noms:
-            raise NameError 
-        else:
-            self.nom=nom
+        assert nom not in noms, "Erreure"
         if couleur not in couleurs: 
             raise NameError
         else:
@@ -52,7 +49,7 @@ def testCarte():
     print('Nom:', valetCoeur.getNom()) 
     print('Couleur:', valetCoeur.getCouleur()) 
     print('Valeur:', valetCoeur.getValeur()) 
-    valetCoeur.setNom('Dame') 
+    valetCoeur.setNom('Dame')       
     print('Nom modifie:', valetCoeur.getNom()) 
     print('Valeur modifiee:', valetCoeur.getValeur()) 
 

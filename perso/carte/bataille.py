@@ -2,7 +2,6 @@ from jeucarte2 import *
 from classcarte import * 
 from player import *
 
-
 class Bataille:
 	def __init__(self):
 		self.liste = []
@@ -21,16 +20,16 @@ class Bataille:
 
 
 def run():
-	commit = JeuCartes()
-	commit.creerJeu()
-	commit.melanger()
-	player1 = Joeur("bob",int(commit.getTailleJeu()/2))
-	player2 = Joeur("billy",int(commit.getTailleJeu()/2))
-	for i in range(1,int(commit.getTailleJeu()/2)):
+	package = JeuCartes()
+	package.creerJeu()
+	package.melanger()
+	player1 = Joeur("bob",int(package.getTailleJeu()/2))
+	player2 = Joeur("billy",int(package.getTailleJeu()/2))
+	for i in range(1,int(package.getTailleJeu()/2)):
 		print(player1.getNbCarte())
-		player1.insererMain(commit.distribuerCarte())
-	for i in range(1,int(commit.getTailleJeu()/2)):	
-		player2.insererMain(commit.distribuerCarte())
+		player1.insererMain(package.distribuerCarte())
+	for i in range(1,int(package.getTailleJeu()/2)):	
+		player2.insererMain(package.distribuerCarte())
 	liste1 = Bataille()
 	liste2 = Bataille()
 	manche = 1
@@ -49,12 +48,12 @@ def run():
 			else : 
 				print("{} a gagné contre {} à la manche {}".format(player1.getNom(),player2.getNom(),manche))
 				gagnant = player2
-			while(liste1.liste != []):
+			while (liste1.liste != []):
 				gagnant.insererMain(liste1.BinElement())
-			while(liste2.liste != []):
+			while (liste2.liste != []):
 				gagnant.insererMain(liste2.BinElement())
 			manche += 1 
-			print("---------------------------------------")
+			print(f"-"*40)
 		except : continue
 	if player2.mainJoeur == [] :
 		print("{} a gagnée la partie contre {}".format(player1.getNom(),player2.getNom()))

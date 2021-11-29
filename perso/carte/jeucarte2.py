@@ -23,7 +23,6 @@ class JeuCartes:
             for n in noms[5:]:
                 for c in couleurs:
                     self.jeu.append(Carte(n,c))
-
     def getJeu(self): 
         '''Renvoie la liste des cartes correspondant à l'attribut self.jeu''' 
         return self.jeu 
@@ -33,7 +32,7 @@ class JeuCartes:
         random.shuffle(self.jeu) 
     def distribuerCarte(self): 
         ''' Cette fonction permet de distribuer une carte à un joueur. 
-        Elle retourne la carte Valeur retournée: Objet de type Carte ''' 
+        Elle retourne la carte Valeurr etournée: Objet de type Carte ''' 
         return self.jeu.pop()
 
     def distribuerJeu(self, nbJoueurs, nbCartes): #nb de cartes pour chaque joueur
