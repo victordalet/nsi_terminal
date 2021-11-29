@@ -38,9 +38,9 @@ def TrouveParent(arbre,indice_fils):
 	assert isinstance(arbre,list) , "l'arbre est de type list"
 	assert isinstance(indice_fils,int) , "l'indice doit être un int"
 	assert indice_fils > 0 , "l'indice du fils est trop petit" 
-	for indice_noeud_pere in range(len(arbre)): 
-		if 2**(indice_noeud_pere +1) == indice_fils or 2**(indice_noeud_pere +2) == indice_fils:
-			return arbre[indice_noeud_pere]
+	if indice_fils%2 == 0:
+		return arbre[(indice_fils-2)//2]
+	return arbre[(indice_fils-1)//2]
 
 
 def isNotEmpty(arbre):
@@ -67,3 +67,6 @@ def TrouveFils(arbre,indice_pere):
 	assert isinstance(arbre,list) , "l'arbre est de type list"
 	assert isinstance(indice_pere,int) , "l'indice du père est un int"
 	return arbre[2**(indice_noeud_pere +1)],arbre[2**(indice_noeud_pere +2)]
+
+
+print(TrouveParent([1,2,5,6,2,3,4,5,2],7))
