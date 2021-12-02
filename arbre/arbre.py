@@ -124,16 +124,29 @@ def ConvertirArbreInRecursive(arbre,c=0):
 	assert isinstance(arbre,list) , "l'arbre est de type list"
 	if len(arbre) <= 2*c+1:
 		return arbre[c]
-	return [arbre[c],[ConvertirListInRecursive(arbre,2*c+1),ConvertirListInRecursive(arbre,2*c+2)]]
+	return [arbre[c],[ConvertirArbreInRecursive(arbre,2*c+1),ConvertirArbreInRecursive(arbre,2*c+2)]]
 
 
-def parcourLargeurArbre(arbre,c=0):
+def ProfondeurRecursif(arbre,profondeur=0):
 	"""
-	parcour l'arbre en largeur
+	calcule la profondeur en appelle recursif
+	entrée : arbre (list)
+	sortie : la profondeur (int)
+	"""
+	assert isinstance(arbre,list) , "l'arbre est de type list"
+	if 2*profondeur+1 >= len(arbre) :
+		return 0 
+	return 1+ProfondeurRecursif(arbre,2*(profondeur)+1)
+
+
+def ProfondeurRecursif2(arbre,n=0):
+	"""
+	calcule la profondeur en appelle recursif avec des arbre recursif
 	entrée : un arbre recursif (list)
-	sortie : onput
+	sortie : la profondeur (int)
 	"""
-
-
-
-print(parcourLargeurArbre([5,[2,[8,6]],[6,[7,"a"]]]))
+	if arbre == []:
+		return -1
+	pfdg = ProfondeurRecursif2(2*n+1)+1
+	pfdd = ProfondeurRecursif2(2*n+2)+1
+	return max(pfdg,pfdd)+1

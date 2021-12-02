@@ -423,3 +423,5 @@ def Tselection(liste):
 def chercheList(liste):
 	for i in liste:
 		assert isinstance(i,float) or isinstance(i,int), "une liste de floatant ou d'int est demandée"
+
+
