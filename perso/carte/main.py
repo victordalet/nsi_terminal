@@ -1,6 +1,6 @@
 from bataille import *
 
-def main():
-	run()
-
+def main(): #fonction qui permet de lancer la bataille
+    b=Bataille()
+    b.jouer()
 main()
