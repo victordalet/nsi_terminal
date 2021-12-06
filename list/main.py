@@ -109,6 +109,16 @@ def main():
 
 	print(liste.Tselection(ma_liste))
 
+	print("....")
+
+	print(liste.enfiller(ma_liste,"avc"))
+
+	print(liste.defiller(ma_liste))
+
+	print(liste.empiler(ma_liste,"h6"))
+
+	print(liste.depiler(ma_liste))
+
 	liste.dessiner_graphe(graphe)
 
 

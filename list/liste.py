@@ -425,3 +425,57 @@ def chercheList(liste):
 		assert isinstance(i,float) or isinstance(i,int), "une liste de floatant ou d'int est demandée"
 
 
+
+################################################
+def enfiller(liste,element):
+	"""
+	enfiller un element dans une fille
+	entrée : liste (list) , element
+	sortie : la liste avec l'élément enfiller (list)
+	"""
+	assert isinstance(liste,list), "une liste est demandée"
+	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
+	new_liste = [element]
+	for i in liste:
+		new_liste += [i]
+	return new_liste
+
+def defiller(liste):
+	"""
+	defiller un element dans une fille
+	entrée : liste (list)
+	sortie : la liste defiller (list)
+	"""
+	assert isinstance(liste,list), "une liste est demandée"
+	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
+	new_liste = []
+	for i in range(len(liste)):
+		if i != len(liste)-1:
+			new_liste += [liste[i]]
+	return new_liste
+
+def empiler(liste,element):
+	"""
+	empile un element dans une pile
+	entrée : liste (list) , element
+	sortie : la liste avec l'élément enpiler (list)
+	"""
+	assert isinstance(liste,list), "une liste est demandée"
+	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
+	new_liste = []
+	for i in liste:
+		new_liste += [i]
+	new_liste += [element]
+	return new_liste
+
+def depiler(liste):
+	"""
+	defiller un element dans une fille
+	entrée : liste (list)
+	sortie : la liste defiller (list)
+	"""
+	return defiller(liste)
+

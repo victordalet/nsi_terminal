@@ -4,7 +4,7 @@ def insererElementArbre(arbre,indice_pere,fg,fd):
 	entrée : l'arbre (list) , indice du père (int) , element du fils gauche , element du fils droit
 	sortie : l'arbre modifié (list)
 	"""
-	assert isinstance(arbre,list) , "l'arbre est de type list"
+	assert isinstance(arbre,list) , "l'arbre doit est de type list"
 	assert isinstance(indice_pere,int) , "l'indice du père est un int"
 	try : 
 		arbre[2*indice_pere+1] , arbre[2*indice_pere+2] = fg,fd 
@@ -31,7 +31,7 @@ def calculeProfondeur(arbre):
 	entrée : l'arbre (list)
 	sortie : la profondeur (int)
 	"""
-	assert isinstance(arbre,list) , "l'arbre est de type list"
+	assert isinstance(arbre,list) , "l'arbre doit est de type list"
 	for i in range(len(arbre)):
 		if 2**(i+1) -1 == len(arbre):
 			return i
@@ -42,7 +42,7 @@ def TrouveParent(arbre,indice_fils):
 	entrée : l'arbre (list) , l'indice du fils (int)
 	sortie : la valeur du noeud du père
 	"""
-	assert isinstance(arbre,list) , "l'arbre est de type list"
+	assert isinstance(arbre,list) , "l'arbre doit est de type list"
 	assert isinstance(indice_fils,int) , "l'indice doit être un int"
 	assert indice_fils > 0 , "l'indice du fils est trop petit" 
 	if indice_fils%2 == 0:
@@ -56,7 +56,7 @@ def isNotEmpty(arbre):
 	entrée : l'abre (list)
 	sortie : True si vide , False si pas vide
 	"""
-	assert isinstance(arbre,list) , "l'arbre est de type list"
+	assert isinstance(arbre,list) , "l'arbre doit est de type list"
 	if arbre == []:
 		return True
 	for i in arbre:
@@ -71,7 +71,7 @@ def TrouveFils(arbre,indice_pere):
 	entrée : l'abre (list) , l'indice du père (int)
 	sortie : la valeur des deux fils (tuple)
 	"""
-	assert isinstance(arbre,list) , "l'arbre est de type list"
+	assert isinstance(arbre,list) , "l'arbre doit est de type list"
 	assert isinstance(indice_pere,int) , "l'indice du père est un int"
 	try : 
 		return arbre[2**(indice_pere )],arbre[2**(indice_pere )+1]
@@ -84,7 +84,7 @@ def valueIsRacine(arbre,value):
 	entrée : l'arbre (list) ,  la valeur 
 	sortie : True si noeud sinon False
 	"""
-	assert isinstance(arbre,list) , "l'arbre est de type list"
+	assert isinstance(arbre,list) , "l'arbre doit est de type list"
 	if value == arbre[0]:
 		return True
 	return False
@@ -95,7 +95,7 @@ def isSheet(arbre,indice):
 	entrée : l'arbre (list) , l'indice (int)
 	sortie : True si est une feuille sinon False
 	"""
-	assert isinstance(arbre,list) , "l'arbre est de type list"
+	assert isinstance(arbre,list) , "l'arbre doit est de type list"
 	assert isinstance(indice,int) , "l'indice est un int"
 	try : 
 		if arbre[indice] == None:
@@ -121,7 +121,7 @@ def ConvertirArbreInRecursive(arbre,c=0):
 	entrée : un arbre non recursif (list)
 	sortie : un arbre recursif (list)
 	"""
-	assert isinstance(arbre,list) , "l'arbre est de type list"
+	assert isinstance(arbre,list) , "l'arbre doit est de type list"
 	if len(arbre) <= 2*c+1:
 		return arbre[c]
 	return [arbre[c],[ConvertirArbreInRecursive(arbre,2*c+1),ConvertirArbreInRecursive(arbre,2*c+2)]]
@@ -133,20 +133,62 @@ def ProfondeurRecursif(arbre,profondeur=0):
 	entrée : arbre (list)
 	sortie : la profondeur (int)
 	"""
-	assert isinstance(arbre,list) , "l'arbre est de type list"
+	assert isinstance(arbre,list) , "l'arbre doit est de type list"
 	if 2*profondeur+1 >= len(arbre) :
 		return 0 
 	return 1+ProfondeurRecursif(arbre,2*(profondeur)+1)
 
-
-def ProfondeurRecursif2(arbre,n=0):
+def ProfondeurListImbriquer(arbre):
 	"""
-	calcule la profondeur en appelle recursif avec des arbre recursif
-	entrée : un arbre recursif (list)
+	calcule la profondeur en appelle recursif de liste imbriquer
+	entrée : arbre (list)
 	sortie : la profondeur (int)
 	"""
-	if arbre == []:
-		return -1
-	pfdg = ProfondeurRecursif2(2*n+1)+1
-	pfdd = ProfondeurRecursif2(2*n+2)+1
-	return max(pfdg,pfdd)+1
+	assert isinstance(arbre,list) , "l'arbre doit est de type list"
+	if arbre[1] == []:
+		return 0
+	profondeur = []
+	for i in arbre[1:]:																									
+		profondeur.append(ProfondeurListImbriquer(i))
+	return max(profondeur)+1
+
+def ConvertirArbreInIterratif(arbre):
+	"""
+	convertir un arbre recursif en iterratif
+	entrée : un arbre recursif
+	sortie : l'arbre iterratif
+	"""
+	assert isinstance(arbre,list) , "l'arbre doit est de type list"
+	new_arbre = []
+	new_arbre.append()
+	return new_arbre
+
+
+def ParcoursLargeur(arbre):
+	"""
+	Parcour la liste en largeur
+	entrée : arbre recursif
+	sortie : void
+	"""
+	assert isinstance(arbre,list) , "l'arbre doit est de type list"
+	new_arbre = ConvertirArbreInIterratif(arbre)
+	for i in new_arbre:
+		print(i)
+
+def ParcoursLongeur(arbre):
+	"""
+	Parcour la liste en longeur
+	entrée : arbre recursif
+	sortie : void
+	"""
+	assert isinstance(arbre,list) , "l'arbre doit est de type list"
+	arbre = str(arbre)
+	for i in arbre:
+		if i != '[' and i != ']' and i != ',' and i!=  ' ':
+			print(i)
+
+
+
+
+
+
