@@ -138,19 +138,17 @@ def ProfondeurRecursif(arbre,profondeur=0):
 		return 0 
 	return 1+ProfondeurRecursif(arbre,2*(profondeur)+1)
 
-def ProfondeurListImbriquer(arbre):
+def ProfondeurArbreImbriquer(arbre):
 	"""
 	calcule la profondeur en appelle recursif de liste imbriquer
 	entrée : arbre (list)
 	sortie : la profondeur (int)
 	"""
 	assert isinstance(arbre,list) , "l'arbre doit est de type list"
-	if arbre[1] == []:
-		return 0
-	profondeur = []
-	for i in arbre[1:]:																									
-		profondeur.append(ProfondeurListImbriquer(i))
-	return max(profondeur)+1
+	if arbre == []: return -1
+	fg = ProfondeurArbreImbriquer(arbre[1])
+	fd = ProfondeurArbreImbriquer(arbre[2])
+	return max(fg,fd)+1
 
 def ConvertirArbreInIterratif(arbre):
 	"""

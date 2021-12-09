@@ -436,9 +436,10 @@ def enfiller(liste,element):
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	chercheList(liste)
-	new_liste = [element]
+	new_liste = []
 	for i in liste:
 		new_liste += [i]
+	new_liste += [element]
 	return new_liste
 
 def defiller(liste):
@@ -452,7 +453,7 @@ def defiller(liste):
 	chercheList(liste)
 	new_liste = []
 	for i in range(len(liste)):
-		if i != len(liste)-1:
+		if i != 0:
 			new_liste += [liste[i]]
 	return new_liste
 
@@ -462,14 +463,8 @@ def empiler(liste,element):
 	entrée : liste (list) , element
 	sortie : la liste avec l'élément enpiler (list)
 	"""
-	assert isinstance(liste,list), "une liste est demandée"
-	assert longeurListe(liste) > 0, "Tableau est vide"
-	chercheList(liste)
-	new_liste = []
-	for i in liste:
-		new_liste += [i]
-	new_liste += [element]
-	return new_liste
+	return enfiller(liste,element)
+	
 
 def depiler(liste):
 	"""
@@ -477,5 +472,12 @@ def depiler(liste):
 	entrée : liste (list)
 	sortie : la liste defiller (list)
 	"""
-	return defiller(liste)
+	assert isinstance(liste,list), "une liste est demandée"
+	assert longeurListe(liste) > 0, "Tableau est vide"
+	chercheList(liste)
+	new_liste = []
+	for i in range(len(liste)):
+		if i != len(liste)-1:
+			new_liste += [liste[i]]
+	return new_liste
 
