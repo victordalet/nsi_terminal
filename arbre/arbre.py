@@ -148,7 +148,7 @@ def ProfondeurArbreImbriquer(arbre):
 	if arbre == []: return -1
 	fg = ProfondeurArbreImbriquer(arbre[1])
 	fd = ProfondeurArbreImbriquer(arbre[2])
-	return max(fg,fd)+1
+	return max(fg,fd)+1s
 
 def ConvertirArbreInIterratif(arbre):
 	"""
@@ -158,7 +158,11 @@ def ConvertirArbreInIterratif(arbre):
 	"""
 	assert isinstance(arbre,list) , "l'arbre doit est de type list"
 	new_arbre = []
-	new_arbre.append()
+	if arbre == []:
+		return 0
+	fg = ConvertirArbreInIterratif(arbre[1])+arbre[0]
+	fg = ConvertirArbreInIterratif(arbre[2])+arbre[0]
+	new_arbre.append(fg,fd)
 	return new_arbre
 
 
