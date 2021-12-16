@@ -233,7 +233,7 @@ def couperListe(liste):
 	assert isinstance(liste,list), "une liste est demandée"
 	assert longeurListe(liste) > 0, "Tableau est vide"
 	chercheList(liste)
-	dic_liste = {}
+	dic_liste = {}	
 	for i in range(longeurListe(liste)):
 		dic_liste[str(i)] = liste[i]
 	print(dic_liste)
@@ -423,8 +423,6 @@ def Tselection(liste):
 def chercheList(liste):
 	for i in liste:
 		assert isinstance(i,float) or isinstance(i,int), "une liste de floatant ou d'int est demandée"
-
-
 
 ################################################
 def enfiller(liste,element):
