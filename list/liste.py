@@ -418,7 +418,7 @@ def Tselection(liste):
 			if value_min != i:
 				liste[i], liste[value_min] = liste[value_min], liste[i]
 	return liste
-
+#################################################################
 
 def chercheList(liste):
 	for i in liste:
