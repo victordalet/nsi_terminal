@@ -1,6 +1,7 @@
 from tkinter import *
 from py.data import *
 from py.input import *
+from py.score import *
 import random
 import pyttsx3
 
@@ -10,12 +11,12 @@ def load():
 	W.title("CODE DE LA ROUTE")
 	W.configure(bg="#141414")
 	data = import_data('data/questions.json')
-	list_question = random_quetion(data)
+	list_question = random_question(data)
 	display(W,list_question,data)
 	W.mainloop()
 
 
-def random_quetion(data):
+def random_question(data):
 	return random.choice(data)
 
 def display(W,list_question,data):
@@ -27,12 +28,12 @@ def display(W,list_question,data):
 	good = list_question[5]
 	url_image = 'assets/images/'+str(take_len(list_question,data))+'.png'
 	label(W,question,"#d5d5d5","#f86263")
-	talk(question)
+	talk(list_question[0])
 	#picture(W,url_image)
-	bttn(W,W.winfo_screenwidth()*1/5,W.winfo_screenheight()*2/3,choice1,"#d5d5d5","#f86263")
-	bttn(W,W.winfo_screenwidth()*3/5,W.winfo_screenheight()*2/3,choice2,"#d5d5d5","#f86263")
-	bttn(W,W.winfo_screenwidth()*1/5,W.winfo_screenheight()*3/4,choice3,"#d5d5d5","#f86263")
-	bttn(W,W.winfo_screenwidth()*3/5,W.winfo_screenheight()*3/4,choice4,"#d5d5d5","#f86263")
+	bttn(W,W.winfo_screenwidth()*1/5,W.winfo_screenheight()*2/3,choice1,"#d5d5d5","#f86263",valide1)
+	bttn(W,W.winfo_screenwidth()*3/5,W.winfo_screenheight()*2/3,choice2,"#d5d5d5","#f86263",valide2)
+	bttn(W,W.winfo_screenwidth()*1/5,W.winfo_screenheight()*3/4,choice3,"#d5d5d5","#f86263",valide3)
+	bttn(W,W.winfo_screenwidth()*3/5,W.winfo_screenheight()*3/4,choice4,"#d5d5d5","#f86263",valide4)
 
 
 
@@ -45,3 +46,8 @@ def talk(text):
 	s = pyttsx3.init()    
 	s.say(text)  
 	s.runAndWait() 
+
+def new_question():
+	data = import_data('data/questions.json')
+	list_question = random_question(data)
+	display(W,list_question,data)

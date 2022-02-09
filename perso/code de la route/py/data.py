@@ -9,3 +9,7 @@ def import_data(url):
 	with open(url) as read_file:
 		data = json.load(read_file)
 	return data
+
+def give_data(url,data):
+	with open(url,"w") as fp:
+		json.dump(data,fp)
