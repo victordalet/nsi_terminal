@@ -57,4 +57,8 @@ def valide4():
 
 def end_game(list):
 	if len(list) == 39:
-		print("fin")
+		list_answers = import_data('data/score.json')
+		for i in range(len(list_answers)):
+			print("questions {} la réponse étais {}".format(i+1, list_answers[i]))
+		give_data('data/score.json',[])
+
