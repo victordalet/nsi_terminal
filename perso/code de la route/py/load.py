@@ -62,36 +62,36 @@ class questionnaire:
 		reponse = import_data('data/questions.json')[-1]
 		self.end_game(reponse)
 		if reponse == 1:
-			self.list_answers += True
+			self.list_answers.append(True)
 		else : 
-			self.list_answers += False
+			self.list_answers.append(False)
 		self.new_question()
 
 	def valide2(self):
 		reponse = import_data('data/questions.json')[-1]
 		self.end_game(reponse)
 		if reponse == 2:
-			self.list_answers += True
+			self.list_answers.append(True)
 		else : 
-			self.list_answers += False
+			self.list_answers.append(False)
 		self.new_question()
 
 	def valide3(self):
 		reponse = import_data('data/questions.json')[-1]
 		self.end_game(reponse)
 		if reponse == 3:
-			self.list_answers += True
+			self.list_answers.append(True)
 		else : 
-			self.list_answers += False
+			self.list_answers.append(False)
 		self.new_question()
 
 	def valide4(self):
 		reponse = import_data('data/questions.json')[-1]
 		self.end_game(reponse)
 		if reponse == 4:
-			self.list_answers += True
+			self.list_answers.append(True)
 		else : 
-			self.list_answers += False
+			self.list_answers.append(False)
 		self.new_question()
 
 	def end_game(self,list):
@@ -101,4 +101,15 @@ class questionnaire:
 			list_score = import_data('data/score.json')	
 			list_score += [self.list_answers]
 			give_data('data/score.json',list_score)
+
+	def new_question(self):
+		self.list_question = self.random_question()
+		url_image = 'assets/images/'+str(self.take_len())+'.png'
+		label(self.screen,question,"#d5d5d5","#f86263")
+		self.talk(self.list_question[0])
+		#picture(W,url_image)
+		bttn(self.screen,self.screen.winfo_screenwidth()*1/5,self.screen.winfo_screenheight()*2/3,choice1,"#d5d5d5","#f86263",self.valide1)
+		bttn(self.screen,self.screen.winfo_screenwidth()*3/5,self.screen.winfo_screenheight()*2/3,choice2,"#d5d5d5","#f86263",self.valide2)
+		bttn(self.screen,self.screen.winfo_screenwidth()*1/5,self.screen.winfo_screenheight()*3/4,choice3,"#d5d5d5","#f86263",self.valide3)
+		bttn(self.screen,self.screen.winfo_screenwidth()*3/5,self.screen.winfo_screenheight()*3/4,choice4,"#d5d5d5","#f86263",self.valide4)
 
