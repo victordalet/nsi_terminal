@@ -20,9 +20,15 @@ class questionnaire:
 		self.list_answers = []
 
 	def random_question(self):
+		"""
+		chosie une question au hazare dans toutes les question du data set
+		"""
 		return random.choice(self.data)
 
 	def display(self):
+		"""
+		affiche le page 
+		"""
 		question = self.list_question[0]
 		choice1 = self.list_question[1]
 		choice2 = self.list_question[2]
@@ -41,12 +47,18 @@ class questionnaire:
 
 
 	def take_len(self):
+		"""
+		renvoie le numéro de la question pour retrouver l'image correspondante (2.png) par comparaison
+		"""
 		for i in range(len(self.data)):
 			if self.data[i] == self.list_question:
 				self.del_question(self.data[i])
 				return i+1
 
 	def del_question(self,rang):
+		"""
+		supprimer la question utiliser dans notre copie de dataset pour ne pas retomber dessus
+		"""
 		new_list = []
 		for i in self.data:
 			if i != rang:
@@ -54,11 +66,17 @@ class questionnaire:
 		self.data = new_list
 
 	def talk(self,text):  
+		"""
+		diction
+		"""
 		s = pyttsx3.init()    
 		s.say(text)  
 		s.runAndWait() 
 
 	def valide1(self):
+		"""
+		verifie si le bouton cliquer correspond à la bonne réponse
+		"""
 		reponse = import_data('data/questions.json')[-1]
 		self.end_game(reponse)
 		if reponse == 1:
@@ -95,6 +113,9 @@ class questionnaire:
 		self.new_question()
 
 	def end_game(self,list):
+		"""
+		verifie si toutes les questoins ont été repondu pour pouvoir afficher le score et le stoquer dans un fichier de mémoires
+		"""
 		if len(list) == 39:
 			for i in range(len(self.list_answers)):
 				print("questions {} la réponse étais {}".format(i+1, self.list_answers[i]))
@@ -103,6 +124,9 @@ class questionnaire:
 			give_data('data/score.json',list_score)
 
 	def new_question(self):
+		"""
+		lorsqu'une questoin  à été repondu ont reprend les donnée pour changer les questions
+		"""
 		self.list_question = self.random_question()
 		url_image = 'assets/images/'+str(self.take_len())+'.png'
 		label(self.screen,question,"#d5d5d5","#f86263")

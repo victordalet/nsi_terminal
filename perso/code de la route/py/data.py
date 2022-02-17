@@ -11,5 +11,8 @@ def import_data(url):
 	return data
 
 def give_data(url,data):
+	"""
+	remplace un fichier json par une nouvelle valeur
+	"""
 	with open(url,"w") as fp:
 		json.dump(data,fp)
