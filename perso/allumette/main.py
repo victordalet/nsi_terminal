@@ -10,7 +10,7 @@ def main():
 	screen.title("ALLUMETTE")
 	screen.configure(bg="#141414")
 	bttn(screen,42,"FACILE","#ffcc66","#141414",launch)
-	bttn(screen,42,"DIFFICILE","#25dae9","#141414")
+	bttn(screen,42,"DIFFICILE","#25dae9","#141414",launch2)
 	bttn(screen,42,"QUITTER","#f86263","#141414",screen.destroy)
 	screen.mainloop()
 
@@ -18,6 +18,10 @@ def main():
 
 def launch():
 	screen.destroy()
-	run = Game()
+	run = Game(1)
+
+def launch2():
+	screen.destroy()
+	run = Game(2)
 	
 main()
