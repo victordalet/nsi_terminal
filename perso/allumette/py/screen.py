@@ -72,7 +72,7 @@ class Game:
 
 
 	def win(self,player):
-		if len(self.list) == 0:
+		if len(self.list) <= 1:
 			self.list = [random.randint(0,4) for i in range(random.randint(10,15))]
 			print(self.list)
 			if player:
@@ -89,4 +89,23 @@ class Game:
 		self.validation = input(self.screen,"#d5d5d5","#f86263")
 		bttn(self.screen,20,"OK","#ffcc66","#141414",self.input_nb)
 		self.print = label(self.screen,'score : '+str(self.list),"#141414","#25dae9")
+
+	def particle_display(self):
+		pass
+		"""
+		self.list_particle = []
+		for i in range(self.y,self.height):
+			for j in range(self.x,self.width):
+				new = afficher(particle,j,i)
+				self.list_particle.append(new)
+		"""
+	def particle_explose(self):
+		pass
+		"""
+		del image
+		for i in self.list_particle:
+			i.x += random.randint(-2,2)
+			i.y += random.randint(-2,2)
+		"""
+
 
