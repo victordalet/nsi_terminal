@@ -1,0 +1,59 @@
+.container-txt {
+  min-height: 50vh;
+}
+
+.txt{
+    width: 60%;
+    margin: 1rem auto;
+    padding: 2rem;
+    text-align: justify;
+    transition: all 0.3s;
+    align-items: center;
+    color: var(--txt-color);
+    font-family: 'Coiny', cursive;
+    font-size: 20px;
+}
+
+hr{
+    width:50px;
+    border: none;
+    border-bottom: 1px solid var(--txt-color);
+    margin: 0 auto;
+}
+
+
+p { 
+    line-height: 1.5;
+    letter-spacing: 0.3px;
+    word-spacing: 2px;
+    padding: 10px;
+}
+
+p:first-child::first-letter{
+    color:#FE5F55;
+    font-weight: bold;
+    font-size: 70px;
+    float: left;
+    line-height: 60px;
+    padding-right: 8px;
+    margin-top: -3px;
+}
+
+@media screen and (max-width:600px){
+    .txt {
+        width: 100%;
+        padding: 1rem;
+    }
+}
+
+
+/***************/
+
+.container-img {
+    padding-top: 20vh;
+    text-align: center;
+}
+
+img {
+    border-radius: 30px;
+}
