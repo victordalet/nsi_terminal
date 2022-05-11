@@ -15,9 +15,9 @@ class questionnaire:
 		self.screen.configure(bg="#141414")
 		self.data = import_data('data/questions.json')
 		self.list_question = self.random_question()
+		self.list_answers = import_data('data/score.json')
 		self.display()
 		self.screen.mainloop()
-		self.list_answers = []
 
 	def random_question(self):
 		"""
@@ -36,9 +36,11 @@ class questionnaire:
 		choice4 = self.list_question[4]
 		good = self.list_question[5]
 		url_image = 'assets/images/'+str(self.take_len())+'.png'
-		label(self.screen,question,"#d5d5d5","#f86263")
+		label(self.screen,question,"#1FCCD1","#141414")
 		self.talk(self.list_question[0])
 		#picture(W,url_image)
+		bttn(self.screen,0,0,str(len(self.list_answers)+1)+"/40","#141414","#1FCCD1")
+		bttn(self.screen,self.screen.winfo_screenwidth()-300,0,"code de la route","#141414","#1FCCD1")
 		bttn(self.screen,self.screen.winfo_screenwidth()*1/5,self.screen.winfo_screenheight()*2/3,choice1,"#d5d5d5","#f86263",self.valide1)
 		bttn(self.screen,self.screen.winfo_screenwidth()*3/5,self.screen.winfo_screenheight()*2/3,choice2,"#d5d5d5","#f86263",self.valide2)
 		bttn(self.screen,self.screen.winfo_screenwidth()*1/5,self.screen.winfo_screenheight()*3/4,choice3,"#d5d5d5","#f86263",self.valide3)
@@ -62,7 +64,7 @@ class questionnaire:
 		new_list = []
 		for i in self.data:
 			if i != rang:
-				new_list += i
+				new_list.append(i)
 		self.data = new_list
 
 	def talk(self,text):  
@@ -121,19 +123,24 @@ class questionnaire:
 				print("questions {} la réponse étais {}".format(i+1, self.list_answers[i]))
 			list_score = import_data('data/score.json')	
 			list_score += [self.list_answers]
-			give_data('data/score.json',list_score)
+			give_data('data/score.json',[])
 
 	def new_question(self):
 		"""
 		lorsqu'une questoin  à été repondu ont reprend les donnée pour changer les questions
 		"""
+		give_data('data/score.json',self.list_answers)
+		self.screen.destroy()
+		questionnaire()
+		"""
 		self.list_question = self.random_question()
 		url_image = 'assets/images/'+str(self.take_len())+'.png'
-		label(self.screen,question,"#d5d5d5","#f86263")
+		label(self.screen,self.list_question,"#d5d5d5","#f86263")
 		self.talk(self.list_question[0])
 		#picture(W,url_image)
 		bttn(self.screen,self.screen.winfo_screenwidth()*1/5,self.screen.winfo_screenheight()*2/3,choice1,"#d5d5d5","#f86263",self.valide1)
 		bttn(self.screen,self.screen.winfo_screenwidth()*3/5,self.screen.winfo_screenheight()*2/3,choice2,"#d5d5d5","#f86263",self.valide2)
 		bttn(self.screen,self.screen.winfo_screenwidth()*1/5,self.screen.winfo_screenheight()*3/4,choice3,"#d5d5d5","#f86263",self.valide3)
 		bttn(self.screen,self.screen.winfo_screenwidth()*3/5,self.screen.winfo_screenheight()*3/4,choice4,"#d5d5d5","#f86263",self.valide4)
+		"""
 

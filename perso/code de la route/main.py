@@ -10,13 +10,12 @@ def main():
 	#####################CONFIGURATION#########################
 	global screen
 	screen = tkinter.Tk()
-	screen.geometry('300x110')
+	screen.geometry('300x74')
 	screen.title("CODE DE LA ROUTE")
 	screen.configure(bg="#141414")
 	#####################BOUTONS#########################
 	bttn(screen,0,0,"LANCER","#ffcc66","#141414",launch)
-	bttn(screen,0,37,"OPTIONS","#25dae9","#141414")
-	bttn(screen,0,74,"QUITTER","#f86263","#141414",screen.destroy)
+	bttn(screen,0,37,"QUITTER","#f86263","#141414",screen.destroy)
 	##############################################
 	screen.mainloop()
 
