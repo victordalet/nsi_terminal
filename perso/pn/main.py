@@ -43,19 +43,9 @@ class game:
     def __init__(self):
         self.fenetre=Tk()
         self.Fond=Canvas(self.fenetre,bg='white',width=800,height=600)
-        self.Fond.grid()
-
-        # préchargement des différentes tailles d'images:
-        # les images boule4, boule8, boule16, boule32, boule64 ont des rayons respectifs
-        # de 4=2^2, 8=2^3, 16=2^4, 32=2^5 et 64=2^6
-
-
-
         self.photoballe = []
         for i in range (2,7):
             self.photoballe.append(PhotoImage(file='boule'+str(2**i)+'.gif'))
-
-        # initialisation des boules de neige
         self.X,self.Y,self.VX,self.VY,self.r,self.balle = [],[],[],[],[],[]
         for i in range(3):
             self.X.append(random.randint(50,450))
@@ -64,18 +54,24 @@ class game:
             self.VX.append((-1)**random.randint(1,2)*random.randint(1,5))
             self.VY.append(random.randint(1,6))
             self.balle.append(self.Fond.create_image(self.X[i],self.Y[i],image=self.photoballe[self.r[i]-2]))
-
-        self.position = 0
+        self.position = 300
+        self.vitesse = 5
+        self.frame = self.Fond.create_image(self.position,450,image=PhotoImage(file='NoelG.gif'))
         bttn(self.fenetre,800/2-25,550,">","#eeeeee","#000000",self.xmore)
         bttn(self.fenetre,800/2+25,550,"<","#eeeeee","#000000",self.xless)
+        self.Fond.grid()
         self.animation()
         self.fenetre.mainloop()
 
     def xmore(self):
-        self.position += 1 
+        self.position += self.vitesse
+        self.Fond.delete(self.frame)
+        self.frame = self.Fond.create_image(self.position,450,image=PhotoImage(file='NoelG.gif'))
 
     def xless(self):
-        self.position -= 1
+        self.position -= self.vitesse
+        self.Fond.delete(self.frame)
+        self.frame = self.Fond.create_image(self.position,450,image=PhotoImage(file='NoelD.gif'))
 
     def animation(self):
         i=0
