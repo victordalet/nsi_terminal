@@ -182,11 +182,11 @@ class questionnaire:
 			self.list_answers.append(False)
 		self.new_question()
 
-	def end_game(self,list):
+	def end_game(self):
 		"""
 		verifie si toutes les questoins ont été repondu pour pouvoir afficher le score et le stoquer dans un fichier de mémoires
 		"""
-		if len(list) == 39:
+		if len(import_data('data/score.json')) >= 39:
 			for i in range(len(self.list_answers)):
 				print("questions {} la réponse étais {}".format(i+1, self.list_answers[i]))
 			list_score = import_data('data/score.json')	
@@ -202,7 +202,7 @@ class questionnaire:
 		reponse = import_data('data/questions.json')[-1]
 		give_data('data/score.json',self.list_answers)
 		self.screen.destroy()
-		if not self.end_game(reponse):
+		if self.end_game() == False:
 			questionnaire()
 
 	def picture(self):
