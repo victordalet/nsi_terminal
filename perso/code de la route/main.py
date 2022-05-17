@@ -96,7 +96,7 @@ class questionnaire:
 		"""
 		chosie une question au hazare dans toutes les question du data set
 		"""
-		return random.choice(self.data)
+		return self.data[len(import_data('data/score.json'))]
 
 	def display(self):
 		"""
@@ -112,7 +112,7 @@ class questionnaire:
 		label(self.screen,question,"#1FCCD1","#141414")
 		self.talk(self.list_question[0])
 		self.picture()
-		bttn(self.screen,0,0,str(len(self.list_answers)+1)+"/40","#141414","#1FCCD1")
+		bttn(self.screen,0,0,str(len(self.list_answers)+1)+"/"+str(len(import_data('data/questions.json'))+1),"#141414","#1FCCD1")
 		bttn(self.screen,self.screen.winfo_screenwidth()-300,0,"code de la route","#141414","#1FCCD1")
 		bttn(self.screen,self.screen.winfo_screenwidth()*1/5,self.screen.winfo_screenheight()*2/3,choice1,"#d5d5d5","#f86263",self.valide1)
 		bttn(self.screen,self.screen.winfo_screenwidth()*3/5,self.screen.winfo_screenheight()*2/3,choice2,"#d5d5d5","#f86263",self.valide2)
@@ -186,9 +186,19 @@ class questionnaire:
 		"""
 		verifie si toutes les questoins ont été repondu pour pouvoir afficher le score et le stoquer dans un fichier de mémoires
 		"""
-		if len(import_data('data/score.json')) >= 39:
-			for i in range(len(self.list_answers)):
-				print("questions {} la réponse étais {}".format(i+1, self.list_answers[i]))
+		if len(import_data('data/score.json')) >= len(import_data('data/questions.json'))+1:
+			false = 0
+			true = 0
+			for i in import_data('data/score.json'):
+				if i == False:
+					false += 1
+				else:
+					true += 1
+			print("vous avez eu {} bonne réponse sur {}\n".format(true,true+false))
+			print("solution : \n")
+			list_question = import_data('data/questions.json')
+			for i in range(len(list_question)):
+				print("Question {} : {} \n Réponse: {}\n".format(i,list_question[i][0],list_question[i][list_question[i][-1]+1]))	
 			list_score = import_data('data/score.json')	
 			list_score += [self.list_answers]
 			give_data('data/score.json',[])

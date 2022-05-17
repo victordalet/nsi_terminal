@@ -1,6 +1,5 @@
 from tkinter import*
 import random
-from tkinter import PhotoImage
 
 def bttn(W,x,y,text,bcolor,fcolor,cmd=None):
     """
@@ -55,29 +54,30 @@ class game:
             self.VY.append(random.randint(1,6))
             self.balle.append(self.Fond.create_image(self.X[i],self.Y[i],image=self.photoballe[self.r[i]-2]))
         self.position = 300
-        self.vitesse = 5
-        self.frame = self.Fond.create_image(self.position,450,image=PhotoImage(file='NoelG.gif'))
-        bttn(self.fenetre,800/2-25,550,">","#eeeeee","#000000",self.xmore)
-        bttn(self.fenetre,800/2+25,550,"<","#eeeeee","#000000",self.xless)
+        self.vitesse = 20
+        self.win = True
+        self.picture('NoelG.gif')
+        bttn(self.fenetre,800/2-25,20,">","#eeeeee","#000000",self.xmore)
+        bttn(self.fenetre,800/2+25,20,"<","#eeeeee","#000000",self.xless)
         self.Fond.grid()
         self.animation()
         self.fenetre.mainloop()
 
     def xmore(self):
-        self.position += self.vitesse
-        self.Fond.delete(self.frame)
-        self.frame = self.Fond.create_image(self.position,450,image=PhotoImage(file='NoelG.gif'))
+        if self.win:
+            self.position += self.vitesse
+            self.picture('NoelD.gif')
 
     def xless(self):
-        self.position -= self.vitesse
-        self.Fond.delete(self.frame)
-        self.frame = self.Fond.create_image(self.position,450,image=PhotoImage(file='NoelD.gif'))
+        if self.win:
+            self.position -= self.vitesse
+            self.picture('NoelG.gif')
 
     def animation(self):
         i=0
         # on utilise une boucle while car le 
         # nombre de self.balle peu changer au cours de la boucle
-        while i<len(self.balle):
+        while i<len(self.balle) and self.win:
             self.efface=False # informe que la boule i a été effacée
             self.NX=self.X[i]+self.VX[i]
 
@@ -109,13 +109,15 @@ class game:
                     self.r.pop(i)
                     self.VX.pop(i)
                     self.VY.pop(i)
-                    self.balle.pop(i)
+                    self.balle.pop(i)   
                     self.efface=True
 
             if not self.efface: # si elle n'a pas disparu, on met à jour la position
                 self.X[i],self.Y[i] = self.NX,self.NY
                 self.Fond.coords(self.balle[i],self.X[i],self.Y[i])
+                self.game_over(i)
                 i+=1
+                
         # on regarde si on peut ajouter une self.balle
         n=len(self.balle)
         if n<10:
@@ -126,6 +128,28 @@ class game:
             self.VY.append(random.randint(1,6))
             self.balle.append(self.Fond.create_image(self.X[i],self.Y[i],image=self.photoballe[self.r[i]-2]))
         self.fenetre.after(50,self.animation)
+
+    def picture(self,url):
+        self.img = PhotoImage(file=url)
+        self.image = Label(image=self.img).place(x=self.position,y=450)
+
+    def air_boule(self,i):
+        return self.X[i]-self.r[i],self.X[i]+self.r[i],self.Y[i]-self.r[i],self.Y[i]+self.r[i]
+
+    def air_pn(self):
+        return self.position,self.position+88,450,600
+
+    def collision(self,i):
+        if (self.air_pn()[0] <= self.air_boule(i)[0] <= self.air_pn()[1] or self.air_pn()[0] <= self.air_boule(i)[1] <= self.air_pn()[1]) and (self.air_pn()[2] <= self.air_boule(i)[2] <= self.air_pn()[3] or self.air_pn()[2] <= self.air_boule(i)[3] <= self.air_pn()[3]):
+            return False 
+        return True
+
+
+    def game_over(self,i): 
+        self.win = self.collision(i)
+        if self.win == False:
+            print('perdu')
+
 
 def main():
     game()
