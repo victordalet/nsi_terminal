@@ -1,5 +1,7 @@
 from tkinter import*
 import random
+import time
+import json
 
 def bttn(W,x,y,text,bcolor,fcolor,cmd=None):
     """
@@ -21,7 +23,7 @@ def bttn(W,x,y,text,bcolor,fcolor,cmd=None):
         mybutton['foreground'] = bcolor
 
     #####################CONFIGURATION DU BOUTON#########################
-    mybutton=Button(W,width=5,height=2,text=text,
+    mybutton=Button(W,width=9,height=2,text=text,
                         fg=bcolor,
                         bg=fcolor,
                         border=0,
@@ -34,8 +36,26 @@ def bttn(W,x,y,text,bcolor,fcolor,cmd=None):
     mybutton.bind("<Leave>",on_leave)
     #####################PLACE LE BOUTON#########################
     mybutton.place(x=x,y=y)
+    return mybutton
 
 
+
+def import_data(url):
+    """
+    get data
+    input : url (str)
+    output : data (list 2d)
+    """
+    with open(url) as read_file:
+        data = json.load(read_file)
+    return data
+
+def give_data(url,data):
+    """
+    remplace un fichier json par une nouvelle valeur
+    """
+    with open(url,"w") as fp:
+        json.dump(data,fp)
 
 
 class game:
@@ -55,21 +75,25 @@ class game:
             self.balle.append(self.Fond.create_image(self.X[i],self.Y[i],image=self.photoballe[self.r[i]-2]))
         self.position = 300
         self.vitesse = 20
-        self.win = True
+        self.win = 3
+        self.time_d = round(time.time())
+        self.btn_time = bttn(self.fenetre,1,1,str(round(time.time())-self.time_d),"#eeeeee","#000000")
+        self.btn_heart = bttn(self.fenetre,750,1,str(self.win),"#eeeeee","#000000")
+        bttn(self.fenetre,680,1,"record : "+str(import_data('score.json')),"#eeeeee","#000000")
         self.picture('NoelG.gif')
-        bttn(self.fenetre,800/2-25,20,">","#eeeeee","#000000",self.xmore)
-        bttn(self.fenetre,800/2+25,20,"<","#eeeeee","#000000",self.xless)
+        bttn(self.fenetre,800/2-40,20,"<","#eeeeee","#000000",self.xless)
+        bttn(self.fenetre,800/2+25,20,">","#eeeeee","#000000",self.xmore)
         self.Fond.grid()
         self.animation()
         self.fenetre.mainloop()
 
     def xmore(self):
-        if self.win:
+        if self.win != False:
             self.position += self.vitesse
             self.picture('NoelD.gif')
 
     def xless(self):
-        if self.win:
+        if self.win != False:
             self.position -= self.vitesse
             self.picture('NoelG.gif')
 
@@ -77,7 +101,7 @@ class game:
         i=0
         # on utilise une boucle while car le 
         # nombre de self.balle peu changer au cours de la boucle
-        while i<len(self.balle) and self.win:
+        while i<len(self.balle) and self.win != False:
             self.efface=False # informe que la boule i a été effacée
             self.NX=self.X[i]+self.VX[i]
 
@@ -127,6 +151,8 @@ class game:
             self.VX.append((-1)**random.randint(1,2)*random.randint(1,5))
             self.VY.append(random.randint(1,6))
             self.balle.append(self.Fond.create_image(self.X[i],self.Y[i],image=self.photoballe[self.r[i]-2]))
+        self.time()
+        self.heart()
         self.fenetre.after(50,self.animation)
 
     def picture(self,url):
@@ -141,14 +167,45 @@ class game:
 
     def collision(self,i):
         if (self.air_pn()[0] <= self.air_boule(i)[0] <= self.air_pn()[1] or self.air_pn()[0] <= self.air_boule(i)[1] <= self.air_pn()[1]) and (self.air_pn()[2] <= self.air_boule(i)[2] <= self.air_pn()[3] or self.air_pn()[2] <= self.air_boule(i)[3] <= self.air_pn()[3]):
-            return False 
-        return True
+            return 1
+        return 0
 
 
     def game_over(self,i): 
-        self.win = self.collision(i)
+        test = self.collision(i)
+        self.win -= test
+        if test:
+            self.Fond.delete(self.balle[i])
+            self.X.pop(i)
+            self.Y.pop(i)
+            self.r.pop(i)
+            self.VX.pop(i)
+            self.VY.pop(i)
+            self.balle.pop(i)   
+            self.efface=True
         if self.win == False:
-            print('perdu')
+            self.btn_retry = bttn(self.fenetre,400,300,"retry","#eeeeee","#000000",self.retry)
+            if round(time.time())-self.time_d > import_data('score.json'):
+                give_data('score.json',round(time.time())-self.time_d)
+
+    def retry(self):
+        self.btn_retry.destroy()
+        self.fenetre.destroy()
+        game()
+
+    def time(self):
+        if self.win != False:
+            self.btn_time.destroy()
+            self.btn_time = bttn(self.fenetre,1,1,str(round(time.time())-self.time_d),"#eeeeee","#000000")
+
+    def heart(self):
+        self.btn_heart.destroy()
+        self.btn_heart = bttn(self.fenetre,750,1,str(self.win),"#eeeeee","#000000")
+
+        
+            
+        
+
 
 
 def main():
