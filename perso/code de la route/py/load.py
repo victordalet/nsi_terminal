@@ -3,6 +3,7 @@ from py.data import *
 from py.input import *
 import random
 import pyttsx3
+from tkinter import PhotoImage
 
 
 
@@ -38,14 +39,13 @@ class questionnaire:
 		url_image = 'assets/images/'+str(self.take_len())+'.png'
 		label(self.screen,question,"#1FCCD1","#141414")
 		self.talk(self.list_question[0])
-		#picture(W,url_image)
+		picture(self.screen,url_image)
 		bttn(self.screen,0,0,str(len(self.list_answers)+1)+"/40","#141414","#1FCCD1")
 		bttn(self.screen,self.screen.winfo_screenwidth()-300,0,"code de la route","#141414","#1FCCD1")
 		bttn(self.screen,self.screen.winfo_screenwidth()*1/5,self.screen.winfo_screenheight()*2/3,choice1,"#d5d5d5","#f86263",self.valide1)
 		bttn(self.screen,self.screen.winfo_screenwidth()*3/5,self.screen.winfo_screenheight()*2/3,choice2,"#d5d5d5","#f86263",self.valide2)
 		bttn(self.screen,self.screen.winfo_screenwidth()*1/5,self.screen.winfo_screenheight()*3/4,choice3,"#d5d5d5","#f86263",self.valide3)
 		bttn(self.screen,self.screen.winfo_screenwidth()*3/5,self.screen.winfo_screenheight()*3/4,choice4,"#d5d5d5","#f86263",self.valide4)
-
 
 
 	def take_len(self):
@@ -80,7 +80,6 @@ class questionnaire:
 		verifie si le bouton cliquer correspond à la bonne réponse
 		"""
 		reponse = import_data('data/questions.json')[-1]
-		self.end_game(reponse)
 		if reponse == 1:
 			self.list_answers.append(True)
 		else : 
@@ -89,7 +88,6 @@ class questionnaire:
 
 	def valide2(self):
 		reponse = import_data('data/questions.json')[-1]
-		self.end_game(reponse)
 		if reponse == 2:
 			self.list_answers.append(True)
 		else : 
@@ -98,7 +96,6 @@ class questionnaire:
 
 	def valide3(self):
 		reponse = import_data('data/questions.json')[-1]
-		self.end_game(reponse)
 		if reponse == 3:
 			self.list_answers.append(True)
 		else : 
@@ -107,7 +104,6 @@ class questionnaire:
 
 	def valide4(self):
 		reponse = import_data('data/questions.json')[-1]
-		self.end_game(reponse)
 		if reponse == 4:
 			self.list_answers.append(True)
 		else : 
@@ -124,23 +120,15 @@ class questionnaire:
 			list_score = import_data('data/score.json')	
 			list_score += [self.list_answers]
 			give_data('data/score.json',[])
+			return True
+		return False
 
 	def new_question(self):
 		"""
 		lorsqu'une questoin  à été repondu ont reprend les donnée pour changer les questions
 		"""
+		reponse = import_data('data/questions.json')[-1]
 		give_data('data/score.json',self.list_answers)
 		self.screen.destroy()
-		questionnaire()
-		"""
-		self.list_question = self.random_question()
-		url_image = 'assets/images/'+str(self.take_len())+'.png'
-		label(self.screen,self.list_question,"#d5d5d5","#f86263")
-		self.talk(self.list_question[0])
-		#picture(W,url_image)
-		bttn(self.screen,self.screen.winfo_screenwidth()*1/5,self.screen.winfo_screenheight()*2/3,choice1,"#d5d5d5","#f86263",self.valide1)
-		bttn(self.screen,self.screen.winfo_screenwidth()*3/5,self.screen.winfo_screenheight()*2/3,choice2,"#d5d5d5","#f86263",self.valide2)
-		bttn(self.screen,self.screen.winfo_screenwidth()*1/5,self.screen.winfo_screenheight()*3/4,choice3,"#d5d5d5","#f86263",self.valide3)
-		bttn(self.screen,self.screen.winfo_screenwidth()*3/5,self.screen.winfo_screenheight()*3/4,choice4,"#d5d5d5","#f86263",self.valide4)
-		"""
-
+		if not self.end_game(reponse):
+			questionnaire()

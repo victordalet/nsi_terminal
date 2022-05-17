@@ -22,6 +22,7 @@ def main():
 
 
 def launch():
+	give_data('data/score.json',[])
 	screen.destroy()
 	questionnaire()
 

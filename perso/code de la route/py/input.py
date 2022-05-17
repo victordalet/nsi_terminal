@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import ImageTk,Image
 
 def bttn(W,x,y,text,bcolor,fcolor,cmd=None):
 	"""
@@ -45,11 +46,9 @@ def label(W,texte,bcolor,fcolor):
 
 	label.pack(ipadx=10, ipady=10)
 
-def picture(W,file):
-	photo = PhotoImage(file=file)
-	print(photo)
-	image_label = Label(
-	    W,
-	    image=photo,
-	)
-	image_label.pack(ipadx=10, ipady=10)
+
+def picture(W,url):
+	img = ImageTk.PhotoImage(Image.open(url))
+	Label(
+	    image=img
+	).pack()
