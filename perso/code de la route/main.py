@@ -22,7 +22,7 @@ def bttn(W,x,y,text,bcolor,fcolor,cmd=None):
 
 	def on_leave(e):
 		"""
-		on change lorsque l'on enleve le clique 
+		on change lorsque l'on enleve le clique
 		"""
 		mybutton['background'] = fcolor
 		mybutton['foreground'] = bcolor
@@ -87,8 +87,11 @@ class questionnaire:
 		self.screen.title("CODE DE LA ROUTE")
 		self.screen.configure(bg="#141414")
 		self.data = import_data('data/questions.json')
-		self.list_question = self.random_question()
+		self.data2 = import_data('data/questions.json')
 		self.list_answers = import_data('data/score.json')
+		if self.list_answers == []:
+			give_data('data/questions_random.json',self.data)
+		self.list_question = self.random_question()
 		self.display()
 		self.screen.mainloop()
 
@@ -96,11 +99,15 @@ class questionnaire:
 		"""
 		chosie une question au hazare dans toutes les question du data set
 		"""
-		return self.data[len(import_data('data/score.json'))]
+		self.q = random.choice(import_data('data/questions_random.json'))
+		self.data2.remove(self.q)
+		give_data('data/questions_random.json',self.data2)
+		
+		return self.q
 
 	def display(self):
 		"""
-		affiche le page 
+		affiche le page
 		"""
 		question = self.list_question[0]
 		choice1 = self.list_question[1]
@@ -112,7 +119,7 @@ class questionnaire:
 		label(self.screen,question,"#1FCCD1","#141414")
 		self.talk(self.list_question[0])
 		self.picture()
-		bttn(self.screen,0,0,str(len(self.list_answers)+1)+"/"+str(len(import_data('data/questions.json'))+1),"#141414","#1FCCD1")
+		bttn(self.screen,0,0,str(len(self.list_answers)+1)+"/"+str(len(self.data)),"#141414","#1FCCD1")
 		bttn(self.screen,self.screen.winfo_screenwidth()-300,0,"code de la route","#141414","#1FCCD1")
 		bttn(self.screen,self.screen.winfo_screenwidth()*1/5,self.screen.winfo_screenheight()*2/3,choice1,"#d5d5d5","#f86263",self.valide1)
 		bttn(self.screen,self.screen.winfo_screenwidth()*3/5,self.screen.winfo_screenheight()*2/3,choice2,"#d5d5d5","#f86263",self.valide2)
@@ -125,8 +132,7 @@ class questionnaire:
 		renvoie le numéro de la question pour retrouver l'image correspondante (2.png) par comparaison
 		"""
 		for i in range(len(self.data)):
-			if self.data[i] == self.list_question:
-				self.del_question(self.data[i])
+			if self.data[i][0] == self.q[0]:
 				return i+1
 
 	def del_question(self,rang):
@@ -139,46 +145,46 @@ class questionnaire:
 				new_list.append(i)
 		self.data = new_list
 
-	def talk(self,text):  
+	def talk(self,text):
 		"""
 		diction
 		"""
-		s = pyttsx3.init()    
-		s.say(text)  
-		s.runAndWait() 
+		s = pyttsx3.init()
+		s.say(text)
+		s.runAndWait()
 
 	def valide1(self):
 		"""
 		verifie si le bouton cliquer correspond à la bonne réponse
 		"""
-		reponse = import_data('data/questions.json')[-1]
+		reponse = self.list_question[-1]
 		if reponse == 1:
 			self.list_answers.append(True)
-		else : 
+		else :
 			self.list_answers.append(False)
 		self.new_question()
 
 	def valide2(self):
-		reponse = import_data('data/questions.json')[-1]
+		reponse = self.list_question[-1]
 		if reponse == 2:
 			self.list_answers.append(True)
-		else : 
+		else :
 			self.list_answers.append(False)
 		self.new_question()
 
 	def valide3(self):
-		reponse = import_data('data/questions.json')[-1]
+		reponse = self.list_question[-1]
 		if reponse == 3:
 			self.list_answers.append(True)
-		else : 
+		else :
 			self.list_answers.append(False)
 		self.new_question()
 
 	def valide4(self):
-		reponse = import_data('data/questions.json')[-1]
+		reponse = self.list_question[-1]
 		if reponse == 4:
 			self.list_answers.append(True)
-		else : 
+		else :
 			self.list_answers.append(False)
 		self.new_question()
 
@@ -186,7 +192,7 @@ class questionnaire:
 		"""
 		verifie si toutes les questoins ont été repondu pour pouvoir afficher le score et le stoquer dans un fichier de mémoires
 		"""
-		if len(import_data('data/score.json')) >= len(import_data('data/questions.json'))+1:
+		if len(import_data('data/score.json')) >= len(import_data('data/questions.json')):
 			false = 0
 			true = 0
 			for i in import_data('data/score.json'):
@@ -194,14 +200,21 @@ class questionnaire:
 					false += 1
 				else:
 					true += 1
-			print("vous avez eu {} bonne réponse sur {}\n".format(true,true+false))
-			print("solution : \n")
+			self.screen = tkinter.Tk()
+			self.screen.geometry(str(self.screen.winfo_screenwidth()) + 'x' + str(self.screen.winfo_screenheight()))
+			self.screen.title("CODE DE LA ROUTE")
+			self.screen.configure(bg="#141414")
+			label(self.screen, "Vous avez eu {} bonne réponses sur {}.".format(true, true + false), "#ffffff", "#000000")
+			label(self.screen, "Résultats : ", "#ffffff", "#000000")
 			list_question = import_data('data/questions.json')
 			for i in range(len(list_question)):
-				print("Question {} : {} \n Réponse: {}\n".format(i,list_question[i][0],list_question[i][list_question[i][-1]+1]))	
-			list_score = import_data('data/score.json')	
-			list_score += [self.list_answers]
-			give_data('data/score.json',[])
+				label(self.screen, "Question N°{} : {} \n Réponse (N°{}): {}\n".format(i+1, list_question[i][0],list_question[i][-1],
+																		 list_question[i][list_question[i][-1]]),
+					  "#ffffff", "#000000")
+				list_score = import_data('data/score.json')
+				list_score += [self.list_answers]
+				give_data('data/score.json', [])
+			self.screen.mainloop()
 			return True
 		return False
 

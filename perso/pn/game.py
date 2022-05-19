@@ -29,30 +29,28 @@ class game:
         self.pause = False # si le jeu est en pause ou non
         self.time_d = round(time.time()) # le temps de dépard du chrono
         self.time_pause = 0  # afin de soustraire le temps lorsque le jeu est en pause
+
+        self.screen.bind('<Right>', self.xmore)
+        self.screen.bind('<Left>',self.xless)
+
         self.display() # on affiche les premiers éléments
         self.Fond.grid()
         self.animation() #le jeu ce déroule dans cette fonction
         self.screen.mainloop()
 
-    def xmore(self): 
-        """
-        On avance le perso vers la droite 
-        """   
+    def xmore(self,event=None):  
         if self.win != False and self.pause != True:
             if self.droit:
+                self.Fond.delete(self.image)
                 self.position += self.vitesse
-                self.image.destroy()
-                self.picture_pn('NoelD.gif')
-
-    def xless(self):
-        """
-        On avance le perso vers la gauche
-        """
+                self.picture_pn("NoelD.gif")
+        
+    def xless(self,event=None):
         if self.win != False and self.pause != True:
             if self.gauche:
+                self.Fond.delete(self.image)
                 self.position -= self.vitesse
-                self.image.destroy()
-                self.picture_pn('NoelG.gif')
+                self.picture_pn("NoelG.gif")
 
     def wall(self):
         """
@@ -62,7 +60,7 @@ class game:
             self.gauche = False
         else: 
             self.gauche = True
-        if self.air_pn()[1] >= 800:
+        if self.air_pn()[1] >= 850:
             self.droit = False
         else:
             self.droit = True 
@@ -113,7 +111,6 @@ class game:
             self.balle.append(self.Fond.create_image(self.X[i],self.Y[i],image=self.photoballe[self.rayon[i]-2]))
         self.time()
         self.wall()
-        self.touches()
         self.screen.after(50,self.animation)
 
     def del_balle(self,i):
@@ -134,8 +131,8 @@ class game:
         affiche la photo du père noel selon son sa direction
         """
         self.img = PhotoImage(file=url)
-        self.image = Label(image=self.img)
-        self.image.place(x=self.position,y=450)
+        self.image=self.Fond.create_image(self.position, 525, image=self.img)
+        
 
     def air_boule(self,i):
         """
@@ -192,7 +189,7 @@ class game:
                 self.btn_time = label(self.screen,35,1,str(round(time.time())-self.time_d-self.time_pause),"#000000","#ffffff")
             else:
                 self.btn_time = label(self.screen,35,1,str(60-(round(time.time())-self.time_d-self.time_pause)),"#000000","#ffffff")
-                if 60-(round(time.time())-self.time_d) <= 0:
+                if (60+self.time_pause)-(round(time.time())-self.time_d) <= 0:
                     self.btn_retry = bttn(self.screen,400,300,"retry","#eeeeee","#000000",self.retry)
                     bttn(self.screen,400,330,"Gagné","#eeeeee","#000000")
                     self.win = False
@@ -234,12 +231,11 @@ class game:
         """
         supprime les coeurs à chaque fois que l'on perds une vie
         """
-        match self.win:
-            case 2:
-                self.image_h3.destroy()
-            case 1 :
-                self.image_h2.destroy()
-            case 0 :
+        if self.win==2:
+            self.image_h3.destroy()
+        if self .win==1:
+            self.image_h2.destroy()
+        if self.win==0:
                 self.image_h1.destroy() 
 
     def pauseOrPlay(self):
@@ -257,23 +253,4 @@ class game:
             self.img_pause = PhotoImage(file="pause.gif")
             self.image_pause = Button(image=self.img_pause,command=self.pauseOrPlay)
             self.image_pause.place(x=1,y=32)
-
-    def touches(self):
-        """
-        detecte les touches
-        """
-        if self.win != False and self.pause != True:
-            self.screen.bind('<Key>',self.action_touches)
-
-    def action_touches(self,e):
-        """
-        fait bouger le perso selon la touche gauche ou droite
-        """
-        match e.keycode :
-            case 37:
-                self.xless()
-            case 39:
-                self.xmore()
-            
-
 
