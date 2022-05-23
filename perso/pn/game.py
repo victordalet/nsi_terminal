@@ -27,15 +27,21 @@ class game:
             self.balle[3].append((-1)**random.randint(1,2)*random.randint(1,5))
             self.balle[4].append(random.randint(1,6))
             self.balle[5].append(self.Fond.create_image(self.balle[0][i],self.balle[1][i],image=self.photoballe[self.balle[2][i]-2]))
-        self.position = 300 #position du joeur
-        self.vitesse = 20 #vitesse du joeur
-        self.win = 3 #nombre de vie
-        self.mode = mode #mode de jeu
-        self.droit = True #pour le collisions du murs
-        self.gauche = True #pour le collisions du murs
+        self.position = 300 # position du joeur
+        self.vitesse = 20 # vitesse du joeur
+        self.win = 3 # nombre de vie
+        self.mode = mode # mode de jeu
+        self.droit = True # pour le collisions du murs
+        self.gauche = True # pour le collisions du murs
         self.pause = False # si le jeu est en pause ou non
         self.time_d = round(time.time()) # le temps de dépard du chrono
         self.time_pause = 0  # afin de soustraire le temps lorsque le jeu est en pause
+        self.spon_bonus = False # pour faire spon un bonus
+        self.time_max_bonus = 5 # temps max pour le bonus
+        self.time_pause_bonus = 0# temps pause lors bonus active
+        self.random_spon_bonus = 0 # pour le x du bonus
+        self.position_bonus = 0 # pour le y du bonus
+        self.petite_taille = 0 # pour aligner le pn lors du bonus
 
         self.screen.bind('<Right>', self.xmore)
         self.screen.bind('<Left>',self.xless)
@@ -50,14 +56,20 @@ class game:
             if self.droit:
                 self.Fond.delete(self.image)
                 self.position += self.vitesse
-                self.picture_pn("NoelD.gif")
+                if self.spon_bonus != 2:
+                    self.picture_pn("NoelD.gif")
+                else:
+                    self.picture_pn("NoelDb.gif")
         
     def xless(self,event=None):
         if self.win != False and self.pause != True:
             if self.gauche:
                 self.Fond.delete(self.image)
                 self.position -= self.vitesse
-                self.picture_pn("NoelG.gif")
+                if self.spon_bonus != 2:
+                    self.picture_pn("NoelG.gif")
+                else:
+                    self.picture_pn("NoelGb.gif")
 
     def wall(self):
         """
@@ -116,8 +128,13 @@ class game:
             self.balle[3].append((-1)**random.randint(1,2)*random.randint(1,5))
             self.balle[4].append(random.randint(1,6))
             self.balle[5].append(self.Fond.create_image(self.balle[0][i],self.balle[1][i],image=self.photoballe[self.balle[2][i]-2]))
+
+        #################### ACTU ET AUTRES FT ########################      
+        if self.win != False and self.pause != True:
+            self.wall()
+            self.ft_spon_bonus()
+            self.bonus_active()
         self.time()
-        self.wall()
         self.screen.after(50,self.animation)
 
     def del_balle(self,i):
@@ -138,7 +155,7 @@ class game:
         affiche la photo du père noel selon son sa direction
         """
         self.img = PhotoImage(file=url)
-        self.image=self.Fond.create_image(self.position, 525, image=self.img)
+        self.image=self.Fond.create_image(self.position, 525+self.petite_taille, image=self.img)
         
 
     def air_boule(self,i):
@@ -151,7 +168,12 @@ class game:
         """
         renvoie les extrémité du père noel
         """
-        return self.position,self.position+88,450,600
+        if self.spon_bonus != 2:
+            return self.position,self.position+88,450,600
+        return self.position,self.position+44,525,600
+
+    def air_bonus(self):
+        return self.random_spon_bonus,self.random_spon_bonus+30,self.position_bonus,self.position_bonus+30
 
     def collision(self,i):
         """
@@ -160,6 +182,14 @@ class game:
         if (self.air_pn()[0] <= self.air_boule(i)[0] <= self.air_pn()[1] or self.air_pn()[0] <= self.air_boule(i)[1] <= self.air_pn()[1]) and (self.air_pn()[2] <= self.air_boule(i)[2] <= self.air_pn()[3] or self.air_pn()[2] <= self.air_boule(i)[3] <= self.air_pn()[3]):
             return 1
         return 0
+
+    def collision_bonus(self):
+        """
+        vérifie les collision entre le père noel et le bonus
+        """
+        if (self.air_pn()[0] <= self.air_bonus()[0] <= self.air_pn()[1] or self.air_pn()[0] <= self.air_bonus()[1] <= self.air_pn()[1]) and (self.air_pn()[2] <= self.air_bonus()[2] <= self.air_pn()[3] or self.air_pn()[2] <= self.air_bonus()[3] <= self.air_pn()[3]):
+            return True
+        return False
 
     def game_over(self,i): 
         """
@@ -202,6 +232,8 @@ class game:
                     self.win = False
         if self.pause:
             self.time_pause = round(time.time())-self.pause_d
+            if self.spon_bonus == 2:
+                self.time_pause_bonus = round(time.time()) - self.pause_d_bonus
 
 
     def display(self):
@@ -255,9 +287,53 @@ class game:
             self.image_pause = Button(image=self.img_pause,command=self.pauseOrPlay)
             self.image_pause.place(x=1,y=32)
             self.pause_d = round(time.time())-self.time_pause
+            self.pause_d_bonus = round(time.time())-self.time_pause_bonus
         else:
             self.pause = False
             self.img_pause = PhotoImage(file="pause.gif")
             self.image_pause = Button(image=self.img_pause,command=self.pauseOrPlay)
             self.image_pause.place(x=1,y=32)
+
+    def ft_spon_bonus(self):
+        """
+        lance le champi
+        """
+        if self.spon_bonus == False:
+            if random.randint(1,100) <= 1:
+                self.spon_bonus = True
+                self.random_spon_bonus = random.randint(1,800)
+                self.position_bonus = 0
+                self.vitesse_bonus = random.randint(1,10)
+                self.img_bonus = PhotoImage(file="champi.gif")
+                self.image_bonus =self.Fond.create_image(self.random_spon_bonus, self.position_bonus, image=self.img_bonus)
+        if self.spon_bonus == True :
+            self.position_bonus += self.vitesse_bonus
+            self.Fond.delete(self.image_bonus)
+            self.image_bonus =self.Fond.create_image(self.random_spon_bonus, self.position_bonus, image=self.img_bonus)
+            if self.position_bonus >= 600 : 
+                self.Fond.delete(self.image_bonus)
+                self.position_bonus = 0
+                self.spon_bonus = False
+
+
+
+    def bonus_active(self):
+        """
+        active et désactive le bonus selon le temps
+        """
+        if self.collision_bonus():
+            self.spon_bonus = 2
+            self.time_d_bonus = round(time.time())
+            self.Fond.delete(self.image_bonus)
+            self.petite_taille = 42
+            self.Fond.delete(self.image)
+            self.picture_pn("NoelGb.gif")
+
+
+        if self.spon_bonus == 2:
+            if (self.time_max_bonus+self.time_pause_bonus)-(round(time.time())-self.time_d_bonus) <= 0:
+                self.spon_bonus = False
+                self.petite_taille = 0
+
+
 
