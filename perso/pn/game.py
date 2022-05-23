@@ -11,15 +11,22 @@ class game:
         self.photoballe = []
         for i in range (2,7):
             self.photoballe.append(PhotoImage(file='boule'+str(2**i)+'.gif')) # stockage image
-        self.X,self.Y,self.VX,self.VY,self.rayon,self.balle = [],[],[],[],[],[] #initialisation des différentes donnée pour chaques balles
+        self.balle = [
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ]
         for i in range(3):
             ############## Remplissage donnée ###############
-            self.X.append(random.randint(50,450))
-            self.Y.append(-100)
-            self.rayon.append(random.randint(2,6))
-            self.VX.append((-1)**random.randint(1,2)*random.randint(1,5))
-            self.VY.append(random.randint(1,6))
-            self.balle.append(self.Fond.create_image(self.X[i],self.Y[i],image=self.photoballe[self.rayon[i]-2]))
+            self.balle[0].append(random.randint(50,450))
+            self.balle[1].append(-100)
+            self.balle[2].append(random.randint(2,6))
+            self.balle[3].append((-1)**random.randint(1,2)*random.randint(1,5))
+            self.balle[4].append(random.randint(1,6))
+            self.balle[5].append(self.Fond.create_image(self.balle[0][i],self.balle[1][i],image=self.photoballe[self.balle[2][i]-2]))
         self.position = 300 #position du joeur
         self.vitesse = 20 #vitesse du joeur
         self.win = 3 #nombre de vie
@@ -70,45 +77,45 @@ class game:
         on anime les boules et lances les fonctions qui se répètent
         """
         i=0
-        while i<len(self.balle) and self.win != False and self.pause != True:
+        while i<len(self.balle[5]) and self.win != False and self.pause != True:
             #################### REBON BALLE #######################
             self.despon=False 
-            self.NX=self.X[i]+self.VX[i]
-            if self.NX > 800-2**self.rayon[i] or self.NX < 2**self.rayon[i]:
-                self.VX[i] = -self.VX[i]
-                self.NX=self.X[i]+self.VX[i]
+            self.new_x=self.balle[0][i]+self.balle[3][i]
+            if self.new_x > 800-2**self.balle[2][i] or self.new_x < 2**self.balle[2][i]:
+                self.balle[3][i] = -self.balle[3][i]
+                self.new_x=self.balle[0][i]+self.balle[3][i]
 
-            self.NY = self.Y[i]+self.VY[i]
-            if self.NY < 2**self.rayon[i] and self.VY[i] < 0 :
-                self.VY[i]=-self.VY[i]
-                self.NY=self.Y[i]+self.VY[i]
+            self.new_y = self.balle[1][i]+self.balle[4][i]
+            if self.new_y < 2**self.balle[2][i] and self.balle[4][i] < 0 :
+                self.balle[4][i]=-self.balle[4][i]
+                self.new_y=self.balle[1][i]+self.balle[4][i]
 
-            if self.NY>600-2**self.rayon[i]:
-                self.VY[i]=-self.VY[i]
-                self.NY=self.Y[i]+self.VY[i]
-                self.rayon[i]=self.rayon[i]-1
+            if self.new_y>600-2**self.balle[2][i]:
+                self.balle[4][i]=-self.balle[4][i]
+                self.new_y=self.balle[1][i]+self.balle[4][i]
+                self.balle[2][i]=self.balle[2][i]-1
 
-                if self.rayon[i]>=2:
-                    self.Fond.itemconfig(self.balle[i],image=self.photoballe[self.rayon[i]-2])
-                    self.NY=self.NY+2**self.rayon[i]
+                if self.balle[2][i]>=2:
+                    self.Fond.itemconfig(self.balle[5][i],image=self.photoballe[self.balle[2][i]-2])
+                    self.new_y=self.new_y+2**self.balle[2][i]
 
                 else:
                     self.del_balle(i)
             ################## ACTUALISE COORDONE BALLE #######################        
             if not self.despon: 
-                self.X[i],self.Y[i] = self.NX,self.NY
-                self.Fond.coords(self.balle[i],self.X[i],self.Y[i])
+                self.balle[0][i],self.balle[1][i] = self.new_x,self.new_y
+                self.Fond.coords(self.balle[5][i],self.balle[0][i],self.balle[1][i])
                 self.game_over(i)
                 i+=1
         #################### AJOUT NOUVELLE BALLE ########################        
-        n=len(self.balle)
+        n=len(self.balle[5])
         if n<10:
-            self.X.append(random.randint(50,450))
-            self.Y.append(-100)
-            self.rayon.append(random.randint(2,6))
-            self.VX.append((-1)**random.randint(1,2)*random.randint(1,5))
-            self.VY.append(random.randint(1,6))
-            self.balle.append(self.Fond.create_image(self.X[i],self.Y[i],image=self.photoballe[self.rayon[i]-2]))
+            self.balle[0].append(random.randint(50,450))
+            self.balle[1].append(-100)
+            self.balle[2].append(random.randint(2,6))
+            self.balle[3].append((-1)**random.randint(1,2)*random.randint(1,5))
+            self.balle[4].append(random.randint(1,6))
+            self.balle[5].append(self.Fond.create_image(self.balle[0][i],self.balle[1][i],image=self.photoballe[self.balle[2][i]-2]))
         self.time()
         self.wall()
         self.screen.after(50,self.animation)
@@ -117,13 +124,13 @@ class game:
         """
         suppression de la balle, de ses coordonnée, ...
         """
-        self.Fond.delete(self.balle[i])
-        self.X.pop(i)
-        self.Y.pop(i)
-        self.rayon.pop(i)
-        self.VX.pop(i)
-        self.VY.pop(i)
-        self.balle.pop(i)   
+        self.Fond.delete(self.balle[5][i])
+        self.balle[0].pop(i)
+        self.balle[1].pop(i)
+        self.balle[2].pop(i)
+        self.balle[3].pop(i)
+        self.balle[4].pop(i)
+        self.balle[5].pop(i)   
         self.despon=True
 
     def picture_pn(self,url):
@@ -138,7 +145,7 @@ class game:
         """
         renvoie les extrémité de la boule
         """
-        return self.X[i]-self.rayon[i],self.X[i]+self.rayon[i],self.Y[i]-self.rayon[i],self.Y[i]+self.rayon[i]
+        return self.balle[0][i]-self.balle[2][i],self.balle[0][i]+self.balle[2][i],self.balle[1][i]-self.balle[2][i],self.balle[1][i]+self.balle[2][i]
 
     def air_pn(self):
         """
