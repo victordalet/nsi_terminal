@@ -87,7 +87,6 @@ class questionnaire:
 		self.screen.title("CODE DE LA ROUTE")
 		self.screen.configure(bg="#141414")
 		self.data = import_data('data/questions.json')
-		self.data2 = import_data('data/questions.json')
 		self.list_answers = import_data('data/score.json')
 		if self.list_answers == []:
 			give_data('data/questions_random.json',self.data)
@@ -99,11 +98,7 @@ class questionnaire:
 		"""
 		chosie une question au hazare dans toutes les question du data set
 		"""
-		self.q = random.choice(import_data('data/questions_random.json'))
-		self.data2.remove(self.q)
-		give_data('data/questions_random.json',self.data2)
-		
-		return self.q
+		return self.data[len(self.list_answers)]
 
 	def display(self):
 		"""
@@ -132,7 +127,7 @@ class questionnaire:
 		renvoie le numéro de la question pour retrouver l'image correspondante (2.png) par comparaison
 		"""
 		for i in range(len(self.data)):
-			if self.data[i][0] == self.q[0]:
+			if self.data[i][0] == self.list_question[0]:
 				return i+1
 
 	def del_question(self,rang):
