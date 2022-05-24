@@ -328,6 +328,7 @@ class game:
             self.petite_taille = 42
             self.Fond.delete(self.image)
             self.picture_pn("NoelGb.gif")
+            self.position_bonus = 0
 
 
         if self.spon_bonus == 2:
