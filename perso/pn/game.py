@@ -24,7 +24,7 @@ class game:
             self.balle[0].append(random.randint(50,450))
             self.balle[1].append(-100)
             self.balle[2].append(random.randint(2,6))
-            self.balle[3].append((-1)**random.randint(1,2)*random.randint(1,5))
+            self.balle[3].append(random.randint(1,6))
             self.balle[4].append(random.randint(1,6))
             self.balle[5].append(self.Fond.create_image(self.balle[0][i],self.balle[1][i],image=self.photoballe[self.balle[2][i]-2]))
         self.position = 300 # position du joeur
